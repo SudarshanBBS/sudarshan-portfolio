@@ -1,10 +1,10 @@
 <div align="center">
 
 # ⚡ Sudarshan Sunil Hadmode
-### *AI Engineer • Co-Founder at Team Alum • Full-Stack & UI/UX Developer*
+### *AI Engineer • Startup & Founder of Team Alum • Alumni AI Developer • Full-Stack & UI/UX Developer*
 
 [![Live Portfolio](https://img.shields.io/badge/Live_Portfolio-sudarshan.dev-6ee7f7?style=for-the-badge&logo=googlechrome&logoColor=black)](https://sudarshan.dev/)
-[![Team Alum](https://img.shields.io/badge/Co--Founder-Team_Alum-6366f1?style=for-the-badge&logo=vercel&logoColor=white)](https://team-alum.vercel.app)
+[![Team Alum](https://img.shields.io/badge/Startup_Founder-Team_Alum-6366f1?style=for-the-badge&logo=vercel&logoColor=white)](https://team-alum.vercel.app)
 [![Instagram](https://img.shields.io/badge/Instagram-@sudarshan.css-e1306c?style=for-the-badge&logo=instagram&logoColor=white)](https://instagram.com/sudarshan.css)
 [![GitHub](https://img.shields.io/badge/GitHub-sudarshandev--llm-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/sudarshandev-llm)
 
@@ -23,7 +23,7 @@
 
 ## 👨‍💻 About Me
 
-I am a 17-year-old **AI Engineer**, **Prompt Engineer**, and **Full-Stack Developer** based in Pune, India. As the Co-Founder and Lead Architect of [**Team Alum**](https://team-alum.vercel.app), I specialize in building intelligent tools, AI systems, and interactive digital experiences for students and learners.
+I am a 17-year-old **AI Engineer**, **Prompt Engineer**, and **Full-Stack Developer** based in Pune, India. As the Startup & Founder and Lead Architect of [**Team Alum**](https://team-alum.vercel.app) and developer of **Alumni AI** (an AI with many modes and an integrated browser powered by Chrome), I specialize in building intelligent tools, AI systems, and interactive digital experiences.
 
 > *"Seeking information and executing plans after thinking and researching is the quality of my success."*
 
@@ -49,16 +49,16 @@ This portfolio is an experimental, high-performance web experience crafted with 
   <tr>
     <td width="50%">
       <h3>🌐 <a href="https://team-alum.vercel.app">Team Alum</a></h3>
-      <p><b>Co-Founder & Lead Architect</b></p>
+      <p><b>Startup & Founder & Lead Architect</b></p>
       <p>Official ecosystem delivering intelligent tools, study platforms, and AI applications for students. Engineered with pure modern web standards, Supabase, and verified RLS security.</p>
       <sub><code>AI Engineering</code> • <code>Vanilla JS</code> • <code>Supabase</code> • <code>Vercel</code></sub><br /><br />
       <a href="https://team-alum.vercel.app"><b>Visit team-alum.vercel.app ↗</b></a>
     </td>
     <td width="50%">
-      <h3>🎓 <a href="https://app-7r4li86z9ibl.appmedo.com">Alumni AI Beta</a></h3>
-      <p><b>Flagship Student AI Assistant</b></p>
-      <p>Intelligent AI system connecting students with smart productivity workflows, mentorship, and career preparation tools.</p>
-      <sub><code>AI Systems</code> • <code>Prompt Engineering</code> • <code>Web Platform</code></sub><br /><br />
+      <h3>🤖 <a href="https://app-7r4li86z9ibl.appmedo.com">Alumni AI Beta</a></h3>
+      <p><b>AI with Many Modes &amp; Integrated Chrome Browser</b></p>
+      <p>An AI with many modes and an integrated browser powered by Chrome, delivering versatile intelligence and real-time web capabilities.</p>
+      <sub><code>Alumni AI</code> • <code>Browser (Chrome)</code> • <code>AI Systems</code></sub><br /><br />
       <a href="https://app-7r4li86z9ibl.appmedo.com"><b>Launch App ↗</b></a>
     </td>
   </tr>
@@ -137,5 +137,5 @@ npx serve .
 ---
 
 <div align="center">
-  <sub>© 2026 Sudarshan Sunil Hadmode • Co-founder, <a href="https://team-alum.vercel.app">Team Alum</a> • Crafted with passion from Pune, India 🇮🇳</sub>
+  <sub>© 2026 Sudarshan Sunil Hadmode • Startup &amp; Founder of <a href="https://team-alum.vercel.app">Team Alum</a>, Sudarshan &amp; Soham • Crafted with passion from Pune, India 🇮🇳</sub>
 </div>
