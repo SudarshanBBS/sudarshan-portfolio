@@ -111,7 +111,10 @@ sudarshan-portfolio/
 ├── README.md                       # Professional repository documentation
 ├── assets/
 │   └── pixel-companion.gif         # Pixel art animated companion
-└── google0e536117cdc5e65c.html     # Google Search Console domain verification
+├── robots.txt                      # Search engine & AI crawler manifest
+├── sitemap.xml                     # XML sitemap for Google & Bing
+├── llms.txt                        # Standard manifest for AI search & LLMs
+└── googlee30616999c39952b.html     # Google Search Console domain verification
 ```
 
 ---
