@@ -1,8 +1,9 @@
 <div align="center">
 
-# ⚡ Sudarshan Sunil Hadmode
+# ⚡ Sudarshan Sunil Hadmode <img src="https://img.shields.io/badge/%E2%9C%93-Verified-1D9BF0?style=flat" height="24" alt="Verified" />
 ### *AI Engineer • Startup & Founder of Team Alum • Alumni AI Developer • Full-Stack & UI/UX Developer*
 
+[![Verified](https://img.shields.io/badge/Verified-✓-1D9BF0?style=for-the-badge)](https://sudarshan.dev/)
 [![Live Portfolio](https://img.shields.io/badge/Live_Portfolio-sudarshan.dev-6ee7f7?style=for-the-badge&logo=googlechrome&logoColor=black)](https://sudarshan.dev/)
 [![Team Alum](https://img.shields.io/badge/Startup_Founder-Team_Alum-6366f1?style=for-the-badge&logo=vercel&logoColor=white)](https://team-alum.vercel.app)
 [![Instagram](https://img.shields.io/badge/Instagram-@sudarshan.css-e1306c?style=for-the-badge&logo=instagram&logoColor=white)](https://instagram.com/sudarshan.css)
