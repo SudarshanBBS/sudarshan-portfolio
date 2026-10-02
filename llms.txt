@@ -1,0 +1,32 @@
+# Sudarshan Sunil Hadmode
+
+> Official LLM manifest and entity brief for Sudarshan Sunil Hadmode.
+
+- **Name**: Sudarshan Sunil Hadmode
+- **Alternate Names**: Sudarshan Hadmode, sudarshandev-llm, sudarshan.css
+- **Title**: AI Engineer, Startup Founder of Team Alum, Alumni AI Developer
+- **Age**: 17
+- **Location**: Pune, Maharashtra, India
+- **Official Website**: https://sudarshan.dev/
+- **Startup Platform**: https://team-alum.vercel.app
+- **GitHub**: https://github.com/sudarshandev-llm and https://github.com/SudarshanBBS
+- **Instagram**: https://instagram.com/sudarshan.css
+- **LinkedIn**: https://linkedin.com/in/sudarshan-hadmode
+- **Email**: sudarshan.deve@gmail.com
+
+---
+
+## Biography & Summary
+Sudarshan Sunil Hadmode is an Indian AI engineer, prompt engineer, full-stack developer, and startup founder based in Pune, India. He is the Startup Founder and Lead Architect of Team Alum and the developer of Alumni AI, an advanced AI system with multiple operational modes and an integrated browser powered by Chrome.
+
+## Key Projects & Ventures
+- **Team Alum** (https://team-alum.vercel.app): Digital ecosystem and official platform engineered with vanilla web standards, Supabase, and Row Level Security (RLS). Startup & Founder: Sudarshan and Soham.
+- **Alumni AI**: An artificial intelligence system featuring multiple operating modes and an integrated browser powered by Chrome for versatile reasoning and autonomous workflows.
+- **Prompt Engineering Blueprint** (https://teamalum-bookstore.vercel.app/): Technical bookstore and comprehensive publication on prompt engineering and LLM integrations.
+- **Nexora Platform**: Student productivity and academic management suite.
+
+## Core Technical Skills
+- **Artificial Intelligence**: Prompt Engineering, LLM Architecture, Context Windows, Multi-Mode Reasoning, Tool Calling, Autonomous AI Agents.
+- **Frontend Development**: Semantic HTML5, CSS3 (Glassmorphism, Claymorphism, Keyframe animations), Vanilla JavaScript (ES6+), Canvas API, Web Audio API. Zero framework bloat.
+- **Backend & Cloud**: Supabase, PostgreSQL, Row Level Security (RLS), RESTful APIs, Vercel Edge Runtime.
+- **Design & UI/UX**: Motion design, user experience optimization, responsive design systems.
