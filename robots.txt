@@ -61,5 +61,5 @@ Allow: /
 User-agent: FacebookBot
 Allow: /
 
-# Sitemap & LLMs Manifest
-Sitemap: https://sudarshan.dev/sitemap.xml
+# Sitemap
+Sitemap: https://sudarshanbbs.github.io/sudarshan-portfolio/sitemap.xml
