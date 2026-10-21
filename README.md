@@ -51,11 +51,11 @@ I am a 17-year-old **AI Engineer**, **Prompt Engineer**, and **Full-Stack Develo
       <a href="https://team-alum.vercel.app"><b>Visit team-alum.vercel.app ↗</b></a>
     </td>
     <td width="50%">
-      <h3>🤖 <a href="https://app-7r4li86z9ibl.appmedo.com">Alumni AI Beta</a></h3>
-      <p><b>AI with Many Modes &amp; Integrated Chrome Browser</b></p>
-      <p>An AI with many modes and an integrated browser powered by Chrome, delivering versatile intelligence and real-time web capabilities.</p>
-      <sub><code>Alumni AI</code> • <code>Browser (Chrome)</code> • <code>AI Systems</code></sub><br /><br />
-      <a href="https://app-7r4li86z9ibl.appmedo.com"><b>Launch App ↗</b></a>
+      <h3>🤖 <a href="https://alumni-ai-teamalum.vercel.app/">Alumni AI</a></h3>
+      <p><b>Multi-Mode AI System &amp; Artifact Studio</b></p>
+      <p>High-performance AI assistant featuring live interactive web app preview in Artifact Studio, autonomous web research powered by Chrome, and student productivity workflows.</p>
+      <sub><code>Alumni AI</code> • <code>Artifact Studio</code> • <code>Browser (Chrome)</code> • <code>FastAPI</code></sub><br /><br />
+      <a href="https://alumni-ai-teamalum.vercel.app/"><b>Launch Alumni AI ↗</b></a>
     </td>
   </tr>
   <tr>
@@ -67,11 +67,11 @@ I am a 17-year-old **AI Engineer**, **Prompt Engineer**, and **Full-Stack Develo
       <a href="https://teamalum-bookstore.vercel.app/"><b>Open Bookstore ↗</b></a>
     </td>
     <td width="50%">
-      <h3>🎯 <a href="https://app-c0l89hyi92pt.appmedo.com">Nexora Platform</a></h3>
-      <p><b>Student Productivity Suite</b></p>
-      <p>Digital platform built around student productivity, organizational routines, and academic management.</p>
-      <sub><code>Web App</code> • <code>Productivity</code> • <code>Automation</code></sub><br /><br />
-      <a href="https://app-c0l89hyi92pt.appmedo.com"><b>Explore Nexora ↗</b></a>
+      <h3>⏱️ <a href="https://atlera-timer.vercel.app/">Atlera Timer</a></h3>
+      <p><b>Distraction-Free Study &amp; Focus Timer</b></p>
+      <p>Minimalist focus timer with ambient soundscapes (zen chimes, rainfall, white noise) and ergonomic themes built for deep study and coding sessions.</p>
+      <sub><code>React</code> • <code>Vite</code> • <code>Productivity</code> • <code>Tailwind</code></sub><br /><br />
+      <a href="https://atlera-timer.vercel.app/"><b>Launch Atlera Timer ↗</b></a>
     </td>
   </tr>
 </table>

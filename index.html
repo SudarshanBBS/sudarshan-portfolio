@@ -137,13 +137,14 @@
     </script>
     <style>
         :root {
-            --bg: #030712;
-            --glass: rgba(255, 255, 255, .04);
-            --glass-border: rgba(255, 255, 255, .1);
-            --accent: #6ee7f7;
-            --accent2: #a78bfa;
-            --accent3: #f472b6;
-            --text: #f1f5f9;
+            --bg: #ffffff;
+            --bg-secondary: #f8fafc;
+            --glass: rgba(255, 255, 255, .9);
+            --glass-border: rgba(15, 23, 42, .08);
+            --accent: #0284c7;
+            --accent2: #7c3aed;
+            --accent3: #db2777;
+            --text: #0f172a;
             --muted: #64748b;
             --fh: 'Syne', sans-serif;
             --fb: 'DM Sans', sans-serif;
@@ -178,7 +179,7 @@
             z-index: 9999;
             transform: translate(-50%, -50%);
             transition: width .3s, height .3s;
-            mix-blend-mode: screen
+            mix-blend-mode: multiply
         }
 
         .cursor-ring {
@@ -191,7 +192,7 @@
             z-index: 9998;
             transform: translate(-50%, -50%);
             transition: all .15s ease;
-            opacity: .5
+            opacity: .45
         }
 
         /* LOADER */
@@ -199,9 +200,9 @@
             position: fixed;
             inset: 0;
             background:
-                radial-gradient(circle at 18% 22%, rgba(110, 231, 247, .14), transparent 30%),
-                radial-gradient(circle at 82% 72%, rgba(244, 114, 182, .12), transparent 34%),
-                linear-gradient(135deg, #020617 0%, #030712 48%, #080b18 100%);
+                radial-gradient(circle at 18% 22%, rgba(2, 132, 199, .08), transparent 35%),
+                radial-gradient(circle at 82% 72%, rgba(219, 39, 119, .06), transparent 35%),
+                #ffffff;
             z-index: 10000;
             display: flex;
             align-items: center;
@@ -217,11 +218,11 @@
             position: absolute;
             inset: -2px;
             background-image:
-                linear-gradient(rgba(255, 255, 255, .045) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, .045) 1px, transparent 1px);
+                linear-gradient(rgba(15, 23, 42, .035) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(15, 23, 42, .035) 1px, transparent 1px);
             background-size: 56px 56px;
             mask-image: radial-gradient(circle at center, black 0%, transparent 74%);
-            opacity: .36;
+            opacity: .6;
             animation: loaderGrid 8s linear infinite;
             z-index: 0;
         }
@@ -232,9 +233,9 @@
             width: min(76vw, 560px);
             height: min(76vw, 560px);
             border-radius: 50%;
-            background: conic-gradient(from 130deg, transparent 0 20%, rgba(110, 231, 247, .22), rgba(167, 139, 250, .18), rgba(244, 114, 182, .2), transparent 78% 100%);
-            filter: blur(24px);
-            opacity: .42;
+            background: conic-gradient(from 130deg, transparent 0 20%, rgba(2, 132, 199, .15), rgba(124, 58, 237, .12), rgba(219, 39, 119, .15), transparent 78% 100%);
+            filter: blur(36px);
+            opacity: .5;
             animation: loaderAura 7s ease-in-out infinite;
             z-index: 0;
         }
@@ -251,65 +252,71 @@
 
         .loader-ring {
             position: absolute;
-            width: 100%;
-            height: 100%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             border-radius: 50%;
             border: 2px solid transparent;
-            background-clip: padding-box;
-            box-shadow: inset 0 0 26px rgba(255, 255, 255, .035), 0 0 22px rgba(110, 231, 247, .05);
+            pointer-events: none;
+            box-sizing: border-box;
         }
 
         .loader-ring-1 {
+            width: 144px;
+            height: 144px;
             border-top-color: var(--accent);
             border-right-color: var(--accent);
-            animation: spinRing1 2.4s linear infinite;
+            box-shadow: 0 0 18px rgba(2, 132, 199, .2);
+            animation: spinRingCW 2.4s linear infinite;
         }
 
         .loader-ring-2 {
-            width: 80%;
-            height: 80%;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            width: 112px;
+            height: 112px;
             border-bottom-color: var(--accent2);
             border-left-color: var(--accent2);
-            animation: spinRing2 1.8s linear infinite reverse;
+            box-shadow: 0 0 14px rgba(124, 58, 237, .18);
+            animation: spinRingCCW 1.8s linear infinite;
         }
 
         .loader-ring-3 {
-            width: 50%;
-            height: 50%;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
             border-top-color: var(--accent3);
             border-right-color: var(--accent3);
-            animation: spinRing1 1.2s linear infinite;
+            box-shadow: 0 0 10px rgba(219, 39, 119, .18);
+            animation: spinRingCW 1.2s linear infinite;
         }
 
         .loader-core {
             position: absolute;
-            inset: 30px;
-            border-radius: 30px;
-            background: linear-gradient(145deg, rgba(255, 255, 255, .11), rgba(255, 255, 255, .025));
-            border: 1px solid rgba(255, 255, 255, .14);
-            box-shadow: 0 22px 70px rgba(0, 0, 0, .4), inset 0 1px 0 rgba(255, 255, 255, .14);
-            transform: rotate(45deg);
-            animation: loaderCore 3.8s ease-in-out infinite;
+            width: 66px;
+            height: 66px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(45deg);
+            border-radius: 20px;
+            background: linear-gradient(135deg, rgba(2, 132, 199, .08), rgba(124, 58, 237, .08));
+            border: 1.5px solid rgba(2, 132, 199, .25);
+            box-shadow: 0 10px 24px rgba(2, 132, 199, .12), inset 0 0 14px rgba(255, 255, 255, .8);
+            animation: loaderCorePulse 3s ease-in-out infinite;
         }
 
         .loader-s {
             position: relative;
-            z-index: 2;
+            z-index: 3;
             font-family: var(--fh);
-            font-size: 64px;
+            font-size: 54px;
             line-height: 1;
             font-weight: 800;
-            background: linear-gradient(135deg, var(--accent), var(--text), var(--accent3));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--accent), var(--accent2), var(--accent3));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 22px rgba(110, 231, 247, .25));
-            animation: fadeInScale .8s ease-out;
+            filter: drop-shadow(0 4px 10px rgba(2, 132, 199, .25));
+            animation: loaderSPulse 2s ease-in-out infinite alternate;
         }
 
         .loader-info {
@@ -327,7 +334,8 @@
             letter-spacing: 4px;
             color: var(--accent);
             text-transform: uppercase;
-            opacity: .88;
+            font-weight: 700;
+            opacity: .95;
             animation: fadeInUp .8s .1s both;
         }
 
@@ -337,14 +345,14 @@
             line-height: 1;
             font-weight: 800;
             text-align: center;
-            background: linear-gradient(90deg, var(--text), var(--accent), var(--accent3));
+            background: linear-gradient(90deg, #0f172a, var(--accent), var(--accent2));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             animation: fadeInUp .8s .2s both;
         }
 
         .loader-subtitle {
-            color: rgba(241, 245, 249, .68);
+            color: #64748b;
             font-size: 13px;
             text-align: center;
             animation: fadeInUp .8s .28s both;
@@ -353,11 +361,11 @@
         .loader-bar {
             width: 100%;
             height: 8px;
-            background: rgba(255, 255, 255, .055);
+            background: rgba(15, 23, 42, .06);
             border-radius: 99px;
             overflow: hidden;
-            border: 1px solid var(--glass-border);
-            box-shadow: inset 0 0 18px rgba(0, 0, 0, .32);
+            border: 1px solid rgba(15, 23, 42, .08);
+            box-shadow: inset 0 1px 3px rgba(15, 23, 42, .06);
             animation: fadeInUp .8s .34s both;
         }
 
@@ -366,7 +374,7 @@
             height: 100%;
             background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent3));
             border-radius: 99px;
-            box-shadow: 0 0 24px rgba(110, 231, 247, .42);
+            box-shadow: 0 0 16px rgba(2, 132, 199, .3);
             transition: width .28s cubic-bezier(.2, .9, .2, 1);
             position: relative;
         }
@@ -375,7 +383,7 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .55), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .7), transparent);
             transform: translateX(-100%);
             animation: loaderShine 1.2s ease-in-out infinite;
         }
@@ -393,8 +401,7 @@
             font-family: var(--fh);
             font-size: 15px;
             font-weight: 800;
-            color: var(--text);
-            opacity: .95;
+            color: #0f172a;
             font-variant-numeric: tabular-nums;
         }
 
@@ -405,6 +412,7 @@
             color: var(--muted);
             text-transform: uppercase;
             text-align: right;
+            font-weight: 600;
         }
 
         .loader-chips {
@@ -417,25 +425,50 @@
         }
 
         .loader-chip {
-            border: 1px solid rgba(255, 255, 255, .1);
-            background: rgba(255, 255, 255, .045);
-            color: rgba(241, 245, 249, .7);
+            border: 1px solid rgba(15, 23, 42, .08);
+            background: #f8fafc;
+            color: #475569;
             border-radius: 999px;
-            padding: 6px 10px;
+            padding: 6px 12px;
             font-size: 11px;
             line-height: 1;
-            backdrop-filter: blur(12px);
+            font-weight: 600;
+            box-shadow: 0 1px 3px rgba(15, 23, 42, .04);
         }
 
-        @keyframes spinRing1 {
-            to {
-                transform: rotate(360deg)
+        @keyframes spinRingCW {
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+            100% {
+                transform: translate(-50%, -50%) rotate(360deg);
             }
         }
 
-        @keyframes spinRing2 {
+        @keyframes spinRingCCW {
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+            100% {
+                transform: translate(-50%, -50%) rotate(-360deg);
+            }
+        }
+
+        @keyframes loaderCorePulse {
+            0%, 100% {
+                transform: translate(-50%, -50%) rotate(45deg) scale(1);
+            }
+            50% {
+                transform: translate(-50%, -50%) rotate(45deg) scale(1.08);
+            }
+        }
+
+        @keyframes loaderSPulse {
+            from {
+                transform: scale(0.96);
+            }
             to {
-                transform: translate(-50%, -50%) rotate(-360deg)
+                transform: scale(1.04);
             }
         }
 
@@ -444,7 +477,6 @@
                 opacity: 0;
                 transform: scale(.3)
             }
-
             to {
                 opacity: 1;
                 transform: scale(1)
@@ -458,26 +490,11 @@
         }
 
         @keyframes loaderAura {
-
-            0%,
-            100% {
+            0%, 100% {
                 transform: rotate(0deg) scale(.92);
             }
-
             50% {
                 transform: rotate(180deg) scale(1.06);
-            }
-        }
-
-        @keyframes loaderCore {
-
-            0%,
-            100% {
-                transform: rotate(45deg) scale(1);
-            }
-
-            50% {
-                transform: rotate(45deg) scale(1.08);
             }
         }
 
@@ -501,29 +518,37 @@
                 width: 126px;
                 height: 126px;
             }
-
+            .loader-ring-1 {
+                width: 120px;
+                height: 120px;
+            }
+            .loader-ring-2 {
+                width: 94px;
+                height: 94px;
+            }
+            .loader-ring-3 {
+                width: 68px;
+                height: 68px;
+            }
             .loader-core {
-                inset: 25px;
-                border-radius: 24px;
+                width: 56px;
+                height: 56px;
+                border-radius: 16px;
             }
-
             .loader-s {
-                font-size: 54px;
+                font-size: 44px;
             }
-
             .loader-meta {
                 align-items: flex-start;
                 flex-direction: column;
                 gap: 6px;
             }
-
             .loader-text {
                 text-align: left;
             }
         }
 
         @media (prefers-reduced-motion: reduce) {
-
             #loader::before,
             #loader::after,
             .loader-ring,
@@ -551,7 +576,7 @@
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
             pointer-events: none;
             z-index: 9000;
-            opacity: .4
+            opacity: .015
         }
 
         .orb {
@@ -2652,14 +2677,25 @@
                 <div class="project-card reveal" style="--pc1:#6ee7f7;--pc2:#a78bfa"><span
                         class="project-icon">🤖</span>
                     <div class="project-name">Alumni AI</div>
-                    <p class="project-desc">An AI with many modes and an integrated browser powered by Chrome, built by Team Alum to deliver versatile intelligence and real-time web capabilities.</p>
-                    <div class="project-stack"><span class="stack-pill">AI with Many Modes</span><span
-                            class="stack-pill">Browser (Chrome)</span><span class="stack-pill">Team Alum</span></div>
-                    <div style="margin-top: 14px;">
-                        <a href="https://team-alum.vercel.app" target="_blank" rel="noopener noreferrer" style="color:var(--accent);font-size:13px;text-decoration:none;font-weight:600;display:inline-flex;align-items:center;gap:4px;">Explore on Team Alum ↗</a>
+                                        <p class="project-desc">Advanced multi-mode AI system featuring Artifact Studio for live interactive code &amp; app preview, autonomous web research powered by Chrome, and student workflows.</p>
+                    <div class="project-stack"><span class="stack-pill">Artifact Studio</span><span
+                            class="stack-pill">Chrome Research</span><span class="stack-pill">FastAPI</span><span class="stack-pill">Vercel</span></div>
+                    <div style="margin-top: 14px; display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+                        <a href="https://alumni-ai-teamalum.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn-primary" style="display:inline-block;padding:7px 16px;font-size:12px;border-radius:20px;text-decoration:none;">Launch Alumni AI ↗</a>
+                        <a href="https://team-alum.vercel.app" target="_blank" rel="noopener noreferrer" style="color:var(--accent);font-size:13px;text-decoration:none;font-weight:600;display:inline-flex;align-items:center;gap:4px;">Team Alum ↗</a>
                     </div>
                 </div>
-                <div class="project-card reveal reveal-d1" style="--pc1:#fbbf24;--pc2:#f97316"><span
+                <div class="project-card reveal reveal-d1" style="--pc1:#0284c7;--pc2:#7c3aed"><span
+                        class="project-icon">⏱️</span>
+                    <div class="project-name">Atlera Timer</div>
+                    <p class="project-desc">Minimalist, distraction-free study and deep-work focus timer application with ambient soundscapes (zen chimes, rainfall, white noise) and ergonomic themes.</p>
+                    <div class="project-stack"><span class="stack-pill">React</span><span
+                            class="stack-pill">Vite</span><span class="stack-pill">Ambient Audio</span><span class="stack-pill">Tailwind</span></div>
+                    <div style="margin-top: 14px;">
+                        <a href="https://atlera-timer.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn-primary" style="display:inline-block;padding:7px 16px;font-size:12px;border-radius:20px;text-decoration:none;">Launch Timer ↗</a>
+                    </div>
+                </div>
+                <div class="project-card reveal reveal-d2" style="--pc1:#fbbf24;--pc2:#f97316"><span
                         class="project-icon">🔢</span>
                     <div class="project-name">Calculator</div>
                     <p class="project-desc">A sleek fully-functional calculator with clean UI, standard and scientific
@@ -2784,11 +2820,11 @@
         let W, H, pts = [];
         function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
         resize(); window.addEventListener('resize', resize);
-        class P { constructor() { this.r(); } r() { this.x = Math.random() * W; this.y = Math.random() * H; this.size = Math.random() * 1.5 + .3; this.vx = (Math.random() - .5) * .3; this.vy = (Math.random() - .5) * .3; this.a = Math.random() * .4 + .1; const c = ['110,231,247', '167,139,250', '244,114,182']; this.c = c[Math.floor(Math.random() * 3)]; } update() { this.x += this.vx; this.y += this.vy; if (this.x < 0 || this.x > W || this.y < 0 || this.y > H) this.r(); } draw() { ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fillStyle = `rgba(${this.c},${this.a})`; ctx.fill(); } }
+        class P { constructor() { this.r(); } r() { this.x = Math.random() * W; this.y = Math.random() * H; this.size = Math.random() * 1.5 + .3; this.vx = (Math.random() - .5) * .3; this.vy = (Math.random() - .5) * .3; this.a = Math.random() * .4 + .1; const c = ['2,132,199', '124,58,237', '219,39,119']; this.c = c[Math.floor(Math.random() * 3)]; } update() { this.x += this.vx; this.y += this.vy; if (this.x < 0 || this.x > W || this.y < 0 || this.y > H) this.r(); } draw() { ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fillStyle = `rgba(${this.c},${this.a})`; ctx.fill(); } }
         for (let i = 0; i < 100; i++)pts.push(new P());
         (function animCanvas() {
             ctx.clearRect(0, 0, W, H);
-            ctx.strokeStyle = 'rgba(255,255,255,.018)'; ctx.lineWidth = 1;
+            ctx.strokeStyle = 'rgba(15,23,42,.035)'; ctx.lineWidth = 1;
             for (let x = 0; x < W; x += 80) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke(); }
             for (let y = 0; y < H; y += 80) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke(); }
             pts.forEach(p => { p.update(); p.draw(); });

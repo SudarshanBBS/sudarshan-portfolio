@@ -21,9 +21,9 @@ Sudarshan Sunil Hadmode is an Indian AI engineer, prompt engineer, full-stack de
 
 ## Key Projects & Ventures
 - **Team Alum** (https://team-alum.vercel.app): Digital ecosystem and official platform engineered with vanilla web standards, Supabase, and Row Level Security (RLS). Startup & Founder: Sudarshan and Soham.
-- **Alumni AI**: An artificial intelligence system featuring multiple operating modes and an integrated browser powered by Chrome for versatile reasoning and autonomous workflows.
+- **Alumni AI** (https://alumni-ai-teamalum.vercel.app/): Flagship AI assistant featuring Artifact Studio for live interactive code preview, autonomous web research powered by Chrome, and multi-modal reasoning.
+- **Atlera Timer** (https://atlera-timer.vercel.app/): Minimalist, distraction-free study and deep-work focus timer with ambient soundscapes.
 - **Prompt Engineering Blueprint** (https://teamalum-bookstore.vercel.app/): Technical bookstore and comprehensive publication on prompt engineering and LLM integrations.
-- **Nexora Platform**: Student productivity and academic management suite.
 
 ## Core Technical Skills
 - **Artificial Intelligence**: Prompt Engineering, LLM Architecture, Context Windows, Multi-Mode Reasoning, Tool Calling, Autonomous AI Agents.
