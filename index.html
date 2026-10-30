@@ -1988,6 +1988,111 @@
                 opacity: 0 !important;
             }
         }
+
+        /* 3D Mascot Modal Styles */
+        .mascot-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 100005;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .mascot-modal.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .mascot-modal-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(4, 7, 16, 0.85);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+        }
+        .mascot-modal-container {
+            position: relative;
+            width: 100%;
+            max-width: 980px;
+            height: 85vh;
+            max-height: 820px;
+            background: #090d16;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.7), 0 0 35px rgba(56, 189, 248, 0.25);
+            display: flex;
+            flex-direction: column;
+            transform: scale(0.96);
+            transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .mascot-modal.open .mascot-modal-container {
+            transform: scale(1);
+        }
+        .mascot-modal-topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.85rem 1.4rem;
+            background: rgba(15, 23, 42, 0.95);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .mascot-modal-title {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 0.9rem;
+            color: #f8fafc;
+            font-family: var(--font-display, inherit);
+        }
+        .mascot-modal-btns {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .mascot-modal-link {
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: opacity 0.2s ease;
+        }
+        .mascot-modal-link:hover {
+            opacity: 0.8;
+        }
+        .mascot-modal-close {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #f8fafc;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+        }
+        .mascot-modal-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+        }
+        .mascot-iframe-wrap {
+            flex: 1;
+            width: 100%;
+            height: 100%;
+            background: #090d16;
+        }
+        .mascot-iframe-wrap iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+        }
     </style>
 </head>
 
@@ -2098,6 +2203,7 @@
         <a href="#achievements">Certs</a>
         <a href="#projects">Projects</a>
         <a href="#contact">Contact</a>
+        <a href="buddy.html" style="color:var(--accent);font-weight:600;"><span style="display:inline-block;margin-right:3px;">🤖</span> 3D Mascot</a>
         <a href="https://team-alum.vercel.app" target="_blank" rel="noopener noreferrer" style="color:var(--accent);font-weight:600;">Team Alum ↗</a>
 
     </nav>
@@ -2124,6 +2230,7 @@
         <div class="hero-cta">
             <a href="#projects" class="btn-primary">View Projects</a>
             <a href="#contact" class="btn-ghost">Get in Touch</a>
+            <a href="buddy.html" class="btn-ghost" style="border-color:var(--accent);color:var(--accent);"><span style="margin-right:4px;">🤖</span> 3D Mascot Studio</a>
         </div>
         <div class="hero-scroll">
             <div class="hero-scroll-line"></div>scroll
@@ -2654,6 +2761,21 @@
                         <a href="https://github.com/sudarshandev-llm/agent-forge-prototype" target="_blank" rel="noopener noreferrer" class="btn-primary" style="display:inline-block;padding:7px 16px;font-size:12px;border-radius:20px;text-decoration:none;">View on GitHub ↗</a>
                     </div>
                 </div>
+
+                <!-- 7. Buddy Bot · 3D Mascot Studio -->
+                <div class="project-card reveal reveal-d3" style="--pc1:#38bdf8;--pc2:#2563eb"><span
+                        class="project-icon">🤖</span>
+                    <div class="project-name">Buddy Bot · 3D Mascot Studio</div>
+                    <p class="project-desc">BrandMotion #119 single-file 3D robot mascot built with Three.js r169. Features dynamic canvas face expressions, reaction state machine (jumps, nods, waves, spins), typed dialogue, and 4 color themes.</p>
+                    <div class="project-stack"><span class="stack-pill">Three.js r169</span><span
+                            class="stack-pill">Canvas Face</span><span class="stack-pill">State Machine</span><span class="stack-pill">WebGL</span></div>
+                    <div style="margin-top: 14px; display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+                        <a href="buddy.html" class="btn-primary" style="display:inline-block;padding:7px 16px;font-size:12px;border-radius:20px;text-decoration:none;">Launch 3D Mascot ➔</a>
+                        <a href="buddy.html?preset=0" style="color:var(--text-muted); font-size:0.8rem; text-decoration:none;">Crimson</a>
+                        <a href="buddy.html?preset=2" style="color:var(--text-muted); font-size:0.8rem; text-decoration:none;">Lime</a>
+                        <a href="buddy.html?preset=3" style="color:var(--text-muted); font-size:0.8rem; text-decoration:none;">Grape</a>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -2989,7 +3111,39 @@
 
             // Cleaned: Removed intrusive click triggers from page buttons
 
-            robot.addEventListener('click', () => { showBubbleText('Hey! I am May, Sudarshan\'s AI voice assistant. Exploring the portfolio?', { speed: 16, stay: 2400 }); robot.classList.add('wave'); setTimeout(() => robot.classList.remove('wave'), 900); });
+            // 3D Mascot Modal Controller
+            const mascotModal = document.getElementById('mascotModal');
+            const mascotIframe = document.getElementById('mascotIframe');
+            const closeMascotBtn = document.getElementById('closeMascotBtn');
+            const closeMascotBackdrop = document.getElementById('closeMascotBackdrop');
+
+            function open3DMascotModal() {
+                if (!mascotModal) return;
+                if (mascotIframe && (!mascotIframe.src || mascotIframe.src.endsWith('about:blank'))) {
+                    mascotIframe.src = mascotIframe.dataset.src || 'buddy.html?embed';
+                }
+                mascotModal.classList.add('open');
+                mascotModal.setAttribute('aria-hidden', 'false');
+            }
+
+            function close3DMascotModal() {
+                if (!mascotModal) return;
+                mascotModal.classList.remove('open');
+                mascotModal.setAttribute('aria-hidden', 'true');
+            }
+
+            if (closeMascotBtn) closeMascotBtn.addEventListener('click', close3DMascotModal);
+            if (closeMascotBackdrop) closeMascotBackdrop.addEventListener('click', close3DMascotModal);
+            window.addEventListener('keydown', (e) => { if (e.key === 'Escape') close3DMascotModal(); });
+
+            robot.addEventListener('click', () => {
+                showBubbleText('Hey! Launching my 3D Avatar Buddy Bot...', { speed: 16, stay: 1800 });
+                robot.classList.add('wave');
+                setTimeout(() => {
+                    robot.classList.remove('wave');
+                    open3DMascotModal();
+                }, 700);
+            });
             robot.addEventListener('mouseenter', () => blink());
             robot.addEventListener('focus', () => blink());
 
@@ -3013,6 +3167,26 @@
             if (bubble) { bubble.setAttribute('aria-hidden', 'true'); bubble.setAttribute('role', 'status'); bubble.setAttribute('aria-live', 'polite'); }
         })();
     </script>
+
+    <!-- 3D Mascot Interactive Modal Viewer -->
+    <div id="mascotModal" class="mascot-modal" aria-hidden="true">
+        <div class="mascot-modal-overlay" id="closeMascotBackdrop"></div>
+        <div class="mascot-modal-container">
+            <div class="mascot-modal-topbar">
+                <div class="mascot-modal-title">
+                    <span class="reactor-pulse-dot" style="margin-right:4px;"></span>
+                    <span><strong>BUDDY BOT · 3D MASCOT</strong> · BrandMotion #119</span>
+                </div>
+                <div class="mascot-modal-btns">
+                    <a href="buddy.html" target="_blank" class="mascot-modal-link">Open Fullscreen ↗</a>
+                    <button class="mascot-modal-close" id="closeMascotBtn" aria-label="Close modal">✕</button>
+                </div>
+            </div>
+            <div class="mascot-iframe-wrap">
+                <iframe id="mascotIframe" src="about:blank" data-src="buddy.html?embed" title="3D Mascot" loading="lazy"></iframe>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>
