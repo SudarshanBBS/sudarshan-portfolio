@@ -195,445 +195,372 @@
             opacity: .45
         }
 
-        /* LOADER */
+        /* ============================================================
+           J.A.R.V.I.S. ARC REACTOR CHEST HUD LOADER
+           ============================================================ */
         #loader {
             position: fixed;
             inset: 0;
-            background:
-                radial-gradient(circle at 18% 22%, rgba(2, 132, 199, .08), transparent 35%),
-                radial-gradient(circle at 82% 72%, rgba(219, 39, 119, .06), transparent 35%),
-                #ffffff;
-            z-index: 10000;
+            background: radial-gradient(ellipse at center, #071526 0%, #030712 65%, #010409 100%);
+            z-index: 100000;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-direction: column;
-            gap: 28px;
+            gap: 20px;
             overflow: hidden;
+            color: #e2e8f0;
+            font-family: 'DM Sans', sans-serif;
             -webkit-tap-highlight-color: transparent;
-        }
-
-        #loader::before {
-            content: '';
-            position: absolute;
-            inset: -2px;
-            background-image:
-                linear-gradient(rgba(15, 23, 42, .035) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(15, 23, 42, .035) 1px, transparent 1px);
-            background-size: 56px 56px;
-            mask-image: radial-gradient(circle at center, black 0%, transparent 74%);
-            opacity: .6;
-            animation: loaderGrid 8s linear infinite;
-            z-index: 0;
-        }
-
-        #loader::after {
-            content: '';
-            position: absolute;
-            width: min(76vw, 560px);
-            height: min(76vw, 560px);
-            border-radius: 50%;
-            background: conic-gradient(from 130deg, transparent 0 20%, rgba(2, 132, 199, .15), rgba(124, 58, 237, .12), rgba(219, 39, 119, .15), transparent 78% 100%);
-            filter: blur(36px);
-            opacity: .5;
-            animation: loaderAura 7s ease-in-out infinite;
-            z-index: 0;
-        }
-
-        .loader-container {
-            position: relative;
-            z-index: 2;
-            width: 152px;
-            height: 152px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .loader-ring {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            border-radius: 50%;
-            border: 2px solid transparent;
-            pointer-events: none;
+            user-select: none;
+            padding: 20px;
             box-sizing: border-box;
         }
 
-        .loader-ring-1 {
-            width: 144px;
-            height: 144px;
-            border-top-color: var(--accent);
-            border-right-color: var(--accent);
-            box-shadow: 0 0 18px rgba(2, 132, 199, .2);
-            animation: spinRingCW 2.4s linear infinite;
-        }
-
-        .loader-ring-2 {
-            width: 112px;
-            height: 112px;
-            border-bottom-color: var(--accent2);
-            border-left-color: var(--accent2);
-            box-shadow: 0 0 14px rgba(124, 58, 237, .18);
-            animation: spinRingCCW 1.8s linear infinite;
-        }
-
-        .loader-ring-3 {
-            width: 80px;
-            height: 80px;
-            border-top-color: var(--accent3);
-            border-right-color: var(--accent3);
-            box-shadow: 0 0 10px rgba(219, 39, 119, .18);
-            animation: spinRingCW 1.2s linear infinite;
-        }
-
-        .loader-core {
+        /* Cybernetic Scanline Grid */
+        .jarvis-hud-grid {
             position: absolute;
-            width: 66px;
-            height: 66px;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) rotate(45deg);
-            border-radius: 20px;
-            background: linear-gradient(135deg, rgba(2, 132, 199, .08), rgba(124, 58, 237, .08));
-            border: 1.5px solid rgba(2, 132, 199, .25);
-            box-shadow: 0 10px 24px rgba(2, 132, 199, .12), inset 0 0 14px rgba(255, 255, 255, .8);
-            animation: loaderCorePulse 3s ease-in-out infinite;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(14, 165, 233, .04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(14, 165, 233, .04) 1px, transparent 1px);
+            background-size: 40px 40px;
+            mask-image: radial-gradient(circle at center, black 40%, transparent 80%);
+            opacity: .8;
+            pointer-events: none;
         }
 
-        .loader-s {
-            position: relative;
-            z-index: 3;
-            font-family: var(--fh);
-            font-size: 54px;
-            line-height: 1;
-            font-weight: 800;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, var(--accent), var(--accent2), var(--accent3));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 4px 10px rgba(2, 132, 199, .25));
-            animation: loaderSPulse 2s ease-in-out infinite alternate;
+        /* HUD Corner Brackets */
+        .jarvis-corner {
+            position: absolute;
+            width: 28px;
+            height: 28px;
+            border-color: rgba(56, 189, 248, 0.5);
+            border-style: solid;
+            pointer-events: none;
         }
+        .corner-tl { top: 20px; left: 20px; border-width: 2px 0 0 2px; }
+        .corner-tr { top: 20px; right: 20px; border-width: 2px 2px 0 0; }
+        .corner-bl { bottom: 20px; left: 20px; border-width: 0 0 2px 2px; }
+        .corner-br { bottom: 20px; right: 20px; border-width: 0 2px 2px 0; }
 
-        .loader-info {
-            position: relative;
+        /* HUD Header */
+        .jarvis-hud-header {
+            text-align: center;
             z-index: 2;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 12px;
-            width: min(82vw, 360px);
+            gap: 6px;
         }
-
-        .loader-eyebrow {
-            font-size: 10px;
-            letter-spacing: 4px;
-            color: var(--accent);
-            text-transform: uppercase;
+        .jarvis-protocol-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Syne', sans-serif;
+            font-size: 11px;
             font-weight: 700;
-            opacity: .95;
-            animation: fadeInUp .8s .1s both;
-        }
-
-        .loader-title {
-            font-family: var(--fh);
-            font-size: clamp(26px, 6vw, 38px);
-            line-height: 1;
-            font-weight: 800;
-            text-align: center;
-            background: linear-gradient(90deg, #0f172a, var(--accent), var(--accent2));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: fadeInUp .8s .2s both;
-        }
-
-        .loader-subtitle {
-            color: #64748b;
-            font-size: 13px;
-            text-align: center;
-            animation: fadeInUp .8s .28s both;
-        }
-
-        .loader-bar {
-            width: 100%;
-            height: 8px;
-            background: rgba(15, 23, 42, .06);
+            letter-spacing: 3px;
+            color: #38bdf8;
+            background: rgba(14, 165, 233, 0.12);
+            border: 1px solid rgba(56, 189, 248, 0.35);
+            padding: 5px 14px;
             border-radius: 99px;
-            overflow: hidden;
-            border: 1px solid rgba(15, 23, 42, .08);
-            box-shadow: inset 0 1px 3px rgba(15, 23, 42, .06);
-            animation: fadeInUp .8s .34s both;
+            text-transform: uppercase;
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.2);
+        }
+        .hud-blink-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #00f2fe;
+            box-shadow: 0 0 8px #00f2fe;
+            animation: hudBlink 1s infinite alternate;
+        }
+        @keyframes hudBlink {
+            0% { opacity: 0.3; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1.3); }
+        }
+        .jarvis-sub-telemetry {
+            font-size: 11px;
+            letter-spacing: 2px;
+            color: rgba(148, 163, 184, 0.8);
+            font-weight: 500;
+            text-transform: uppercase;
         }
 
-        .loader-fill {
-            width: 0;
-            height: 100%;
-            background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent3));
-            border-radius: 99px;
-            box-shadow: 0 0 16px rgba(2, 132, 199, .3);
-            transition: width .28s cubic-bezier(.2, .9, .2, 1);
+        /* ARC REACTOR CHEST PIECE */
+        .jarvis-chest-wrap {
             position: relative;
+            z-index: 2;
+            width: clamp(220px, 46vw, 290px);
+            height: clamp(220px, 46vw, 290px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 4px 0;
         }
 
-        .loader-fill::after {
-            content: '';
+        /* Pulsing Glow Aura */
+        .jarvis-arc-aura {
+            position: absolute;
+            inset: -10px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0, 242, 254, 0.28) 0%, rgba(56, 189, 248, 0.12) 45%, transparent 70%);
+            filter: blur(20px);
+            animation: arcAuraPulse 3s ease-in-out infinite alternate;
+        }
+        @keyframes arcAuraPulse {
+            0% { transform: scale(0.92); opacity: 0.5; }
+            100% { transform: scale(1.08); opacity: 0.9; }
+        }
+
+        /* Shockwave Rings */
+        .jarvis-shockwave {
+            position: absolute;
+            border-radius: 50%;
+            border: 1px solid rgba(0, 242, 254, 0.4);
+            pointer-events: none;
+        }
+        .sw-1 {
+            width: 100%;
+            height: 100%;
+            animation: arcWave 2.8s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
+        }
+        .sw-2 {
+            width: 100%;
+            height: 100%;
+            animation: arcWave 2.8s cubic-bezier(0.2, 0.8, 0.2, 1) infinite 1.4s;
+        }
+        @keyframes arcWave {
+            0% { transform: scale(0.6); opacity: 0.8; border-color: rgba(0, 242, 254, 0.7); }
+            100% { transform: scale(1.4); opacity: 0; border-color: rgba(56, 189, 248, 0); }
+        }
+
+        /* Outer Rotor Ring (Clockwise) */
+        .jarvis-rotor-outer {
             position: absolute;
             inset: 0;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .7), transparent);
-            transform: translateX(-100%);
-            animation: loaderShine 1.2s ease-in-out infinite;
+            border-radius: 50%;
+            border: 2px dashed rgba(56, 189, 248, 0.5);
+            box-shadow: 0 0 25px rgba(14, 165, 233, 0.25), inset 0 0 25px rgba(14, 165, 233, 0.25);
+            animation: rotorSpin 16s linear infinite;
+        }
+        @keyframes rotorSpin {
+            100% { transform: rotate(360deg); }
+        }
+        .rotor-tick {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 2px;
+            height: 8px;
+            background: #00f2fe;
+            box-shadow: 0 0 6px #00f2fe;
+            transform-origin: 50% clamp(110px, 23vw, 145px);
+        }
+        .t-0   { transform: translateX(-50%) rotate(0deg); }
+        .t-30  { transform: translateX(-50%) rotate(30deg); }
+        .t-60  { transform: translateX(-50%) rotate(60deg); }
+        .t-90  { transform: translateX(-50%) rotate(90deg); height: 12px; width: 3px; background: #fff; }
+        .t-120 { transform: translateX(-50%) rotate(120deg); }
+        .t-150 { transform: translateX(-50%) rotate(150deg); }
+        .t-180 { transform: translateX(-50%) rotate(180deg); height: 12px; width: 3px; background: #fff; }
+        .t-210 { transform: translateX(-50%) rotate(210deg); }
+        .t-240 { transform: translateX(-50%) rotate(240deg); }
+        .t-270 { transform: translateX(-50%) rotate(270deg); height: 12px; width: 3px; background: #fff; }
+        .t-300 { transform: translateX(-50%) rotate(300deg); }
+        .t-330 { transform: translateX(-50%) rotate(330deg); }
+
+        /* Middle Turbine Blades (Counter-Clockwise) */
+        .jarvis-turbine-mid {
+            position: absolute;
+            width: 76%;
+            height: 76%;
+            border-radius: 50%;
+            border: 2px solid rgba(0, 242, 254, 0.35);
+            box-shadow: inset 0 0 15px rgba(0, 242, 254, 0.2);
+            animation: turbineSpin 9s linear infinite reverse;
+        }
+        @keyframes turbineSpin {
+            100% { transform: rotate(360deg); }
+        }
+        .turbine-blade {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 8px;
+            height: 48%;
+            background: linear-gradient(180deg, #00f2fe 0%, transparent 100%);
+            border-radius: 4px;
+            transform-origin: center top;
+            opacity: 0.6;
+        }
+        .b-1 { transform: translate(-50%, 0) rotate(0deg); }
+        .b-2 { transform: translate(-50%, 0) rotate(90deg); }
+        .b-3 { transform: translate(-50%, 0) rotate(180deg); }
+        .b-4 { transform: translate(-50%, 0) rotate(270deg); }
+
+        /* Inner Arc Emitter Core */
+        .jarvis-arc-emitter {
+            position: absolute;
+            width: 50%;
+            height: 50%;
+            border-radius: 50%;
+            background: radial-gradient(circle, #082f49 0%, #031326 70%, #000 100%);
+            border: 3px solid #00f2fe;
+            box-shadow: 0 0 35px #00f2fe, inset 0 0 25px #00f2fe;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: emitterBreathe 2s ease-in-out infinite alternate;
+        }
+        @keyframes emitterBreathe {
+            0% { transform: scale(0.96); box-shadow: 0 0 25px rgba(0, 242, 254, 0.6), inset 0 0 15px rgba(0, 242, 254, 0.5); }
+            100% { transform: scale(1.04); box-shadow: 0 0 45px rgba(0, 242, 254, 0.9), inset 0 0 30px rgba(0, 242, 254, 0.8); }
+        }
+        .jarvis-plasma-core {
+            width: 66%;
+            height: 66%;
+            border-radius: 50%;
+            background: radial-gradient(circle, #ffffff 10%, #38bdf8 60%, #0284c7 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 25px #fff;
+        }
+        .jarvis-core-symbol {
+            font-size: clamp(22px, 5vw, 32px);
+            color: #030712;
+            font-weight: 900;
+            text-shadow: 0 0 10px #ffffff;
+            animation: coreSparkle 1.2s ease-in-out infinite alternate;
+        }
+        @keyframes coreSparkle {
+            0% { transform: scale(0.9); opacity: 0.8; }
+            100% { transform: scale(1.15); opacity: 1; }
         }
 
-        .loader-meta {
+        /* Crosshairs */
+        .jarvis-crosshair {
+            position: absolute;
+            background: rgba(56, 189, 248, 0.3);
+            pointer-events: none;
+        }
+        .ch-h { width: 108%; height: 1px; }
+        .ch-v { height: 108%; width: 1px; }
+
+        /* HUD TELEMETRY PANEL */
+        .jarvis-telemetry-panel {
+            width: min(88vw, 420px);
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            text-align: center;
+        }
+        .jarvis-status-row {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            width: 100%;
-            gap: 16px;
-            animation: fadeInUp .8s .42s both;
-        }
-
-        .loader-percent {
-            font-family: var(--fh);
-            font-size: 15px;
-            font-weight: 800;
-            color: #0f172a;
-            font-variant-numeric: tabular-nums;
-        }
-
-        .loader-text {
-            min-height: 18px;
+            gap: 10px;
             font-size: 12px;
-            letter-spacing: 1.6px;
-            color: var(--muted);
-            text-transform: uppercase;
-            text-align: right;
             font-weight: 600;
+            letter-spacing: 1px;
         }
-
-        .loader-chips {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 8px;
-            margin-top: 4px;
-            animation: fadeInUp .8s .5s both;
+        .jarvis-diag-badge {
+            font-family: 'Syne', sans-serif;
+            font-size: 10px;
+            color: #38bdf8;
+            background: rgba(56, 189, 248, 0.12);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            padding: 3px 8px;
+            border-radius: 4px;
         }
-
-        .loader-chip {
-            border: 1px solid rgba(15, 23, 42, .08);
-            background: #f8fafc;
-            color: #475569;
-            border-radius: 999px;
-            padding: 6px 12px;
+        .jarvis-status-txt {
+            flex: 1;
+            text-align: left;
+            color: #94a3b8;
             font-size: 11px;
-            line-height: 1;
-            font-weight: 600;
-            box-shadow: 0 1px 3px rgba(15, 23, 42, .04);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .jarvis-percent {
+            font-family: 'Syne', sans-serif;
+            font-size: 14px;
+            font-weight: 800;
+            color: #00f2fe;
+            text-shadow: 0 0 10px rgba(0, 242, 254, 0.6);
         }
 
-        @keyframes spinRingCW {
-            0% {
-                transform: translate(-50%, -50%) rotate(0deg);
-            }
-            100% {
-                transform: translate(-50%, -50%) rotate(360deg);
-            }
+        /* Gauge Wrap */
+        .jarvis-gauge-wrap {
+            width: 100%;
+            height: 8px;
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(56, 189, 248, 0.35);
+            border-radius: 99px;
+            overflow: hidden;
+            padding: 1px;
+            box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.8);
+        }
+        .jarvis-gauge-fill {
+            height: 100%;
+            border-radius: 99px;
+            background: linear-gradient(90deg, #0284c7 0%, #00f2fe 50%, #ffffff 100%);
+            box-shadow: 0 0 12px #00f2fe;
+            transition: width 0.15s ease-out;
         }
 
-        @keyframes spinRingCCW {
-            0% {
-                transform: translate(-50%, -50%) rotate(0deg);
-            }
-            100% {
-                transform: translate(-50%, -50%) rotate(-360deg);
-            }
+        /* Live Terminal Logs */
+        .jarvis-terminal-log {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 11px;
+            color: #38bdf8;
+            background: rgba(3, 7, 18, 0.6);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            border-radius: 6px;
+            padding: 6px 12px;
+            text-align: left;
+            letter-spacing: 0.5px;
+        }
+        .log-prefix {
+            color: #00f2fe;
+            font-weight: bold;
+            margin-right: 4px;
         }
 
-        @keyframes loaderCorePulse {
-            0%, 100% {
-                transform: translate(-50%, -50%) rotate(45deg) scale(1);
-            }
-            50% {
-                transform: translate(-50%, -50%) rotate(45deg) scale(1.08);
-            }
+        /* Welcome Banner */
+        .jarvis-welcome-banner {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(14px, 3.5vw, 18px);
+            font-weight: 800;
+            letter-spacing: 3px;
+            color: #ffffff;
+            text-shadow: 0 0 15px rgba(0, 242, 254, 0.8), 0 0 30px rgba(56, 189, 248, 0.4);
+            text-transform: uppercase;
+            opacity: 0.85;
+            transition: all 0.3s ease;
         }
 
-        @keyframes loaderSPulse {
-            from {
-                transform: scale(0.96);
-            }
-            to {
-                transform: scale(1.04);
-            }
+        /* Tap to Skip Hint */
+        .jarvis-skip-hint {
+            font-size: 10px;
+            color: rgba(148, 163, 184, 0.6);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: 4px;
+            animation: pulseHint 2s infinite ease-in-out;
+        }
+        @keyframes pulseHint {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 0.9; }
         }
 
-        @keyframes fadeInScale {
-            from {
-                opacity: 0;
-                transform: scale(.3)
-            }
-            to {
-                opacity: 1;
-                transform: scale(1)
-            }
-        }
-
-        @keyframes loaderGrid {
-            to {
-                background-position: 56px 56px;
-            }
-        }
-
-        @keyframes loaderAura {
-            0%, 100% {
-                transform: rotate(0deg) scale(.92);
-            }
-            50% {
-                transform: rotate(180deg) scale(1.06);
-            }
-        }
-
-        @keyframes loaderShine {
-            to {
-                transform: translateX(120%);
-            }
-        }
-
-        @keyframes loaderOut {
-            to {
-                opacity: 0;
-                transform: scale(1.04);
-                filter: blur(10px);
-                pointer-events: none
-            }
-        }
-
-        @media (max-width: 520px) {
-            .loader-container {
-                width: 126px;
-                height: 126px;
-            }
-            .loader-ring-1 {
-                width: 120px;
-                height: 120px;
-            }
-            .loader-ring-2 {
-                width: 94px;
-                height: 94px;
-            }
-            .loader-ring-3 {
-                width: 68px;
-                height: 68px;
-            }
-            .loader-core {
-                width: 56px;
-                height: 56px;
-                border-radius: 16px;
-            }
-            .loader-s {
-                font-size: 44px;
-            }
-            .loader-meta {
-                align-items: flex-start;
-                flex-direction: column;
-                gap: 6px;
-            }
-            .loader-text {
-                text-align: left;
-            }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            #loader::before,
-            #loader::after,
-            .loader-ring,
-            .loader-core,
-            .loader-s,
-            .loader-fill,
-            .loader-fill::after {
-                animation: none !important;
-                transition: none !important;
-            }
-        }
-
-        /* BG */
-        #bg-canvas {
-            position: fixed;
-            inset: 0;
-            z-index: 0;
-            pointer-events: none
-        }
-
-        body::before {
-            content: '';
-            position: fixed;
-            inset: 0;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
-            pointer-events: none;
-            z-index: 9000;
-            opacity: .015
-        }
-
-        .orb {
-            position: fixed;
-            border-radius: 50%;
-            filter: blur(100px);
-            pointer-events: none;
-            z-index: 0;
-            animation: orbFloat 15s ease-in-out infinite
-        }
-
-        .orb-1 {
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(var(--accent2), transparent 70%);
-            top: -200px;
-            right: -100px;
-            opacity: .08
-        }
-
-        .orb-2 {
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(var(--accent), transparent 70%);
-            bottom: 20%;
-            left: -150px;
-            opacity: .06;
-            animation-delay: -5s
-        }
-
-        .orb-3 {
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(var(--accent3), transparent 70%);
-            top: 50%;
-            right: 20%;
-            opacity: .05;
-            animation-delay: -10s
-        }
-
-        @keyframes orbFloat {
-
-            0%,
-            100% {
-                transform: translate(0, 0)
-            }
-
-            33% {
-                transform: translate(30px, -40px)
-            }
-
-            66% {
-                transform: translate(-20px, 30px)
-            }
-        }
-
-        /* NAV */
+                /* NAV */
         nav {
             position: fixed;
             top: 20px;
@@ -1744,108 +1671,6 @@
             }
         }
 
-        /* EDGE COLOR EFFECT */
-        :root {
-            --edge-h1: 190;
-            --edge-h2: 260;
-            --edge-h3: 320;
-            --edge-h4: 40;
-            --edge-thickness: clamp(10px, 1.6vh, 36px);
-        }
-
-        .edge {
-            position: fixed;
-            pointer-events: none;
-            z-index: 9997;
-            mix-blend-mode: screen;
-            transition: opacity .12s linear;
-            opacity: 0;
-            will-change: background, opacity;
-        }
-
-        .edge.visible {
-            opacity: 1;
-        }
-
-        .edge-top {
-            top: 0;
-            left: 0;
-            right: 0;
-            height: var(--edge-thickness);
-            background: linear-gradient(90deg, hsl(var(--edge-h1) 90% 60%), hsl(var(--edge-h2) 90% 60%));
-            filter: blur(22px);
-            transform: translateZ(0);
-        }
-
-        .edge-bottom {
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: var(--edge-thickness);
-            background: linear-gradient(90deg, hsl(var(--edge-h2) 90% 60%), hsl(var(--edge-h3) 90% 60%));
-            filter: blur(22px);
-            transform: translateZ(0);
-        }
-
-        .edge-left {
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: var(--edge-thickness);
-            background: linear-gradient(180deg, hsl(var(--edge-h3) 90% 60%), hsl(var(--edge-h4) 90% 60%));
-            filter: blur(22px);
-            transform: translateZ(0);
-        }
-
-        .edge-right {
-            right: 0;
-            top: 0;
-            bottom: 0;
-            width: var(--edge-thickness);
-            background: linear-gradient(180deg, hsl(var(--edge-h4) 90% 60%), hsl(var(--edge-h1) 90% 60%));
-            filter: blur(22px);
-            transform: translateZ(0);
-        }
-
-        @media (max-width: 768px) {
-            .edge {
-                display: none;
-            }
-        }
-
-        /* Edge toggle button (in nav) */
-        .edge-toggle {
-            padding: 6px 13px;
-            border-radius: 99px;
-            font-family: var(--fh);
-            font-size: 12px;
-            font-weight: 700;
-            color: #475569;
-            background: rgba(15, 23, 42, 0.04);
-            border: 1px solid rgba(15, 23, 42, 0.08);
-            cursor: pointer;
-            margin-left: 6px;
-            transition: all .2s ease;
-        }
-
-        .edge-toggle:hover {
-            color: #0f172a;
-            background: rgba(15, 23, 42, 0.08);
-            border-color: rgba(15, 23, 42, 0.15);
-            transform: translateY(-1px);
-        }
-
-        .edge-toggle.active {
-            color: var(--accent);
-            background: rgba(2, 132, 199, 0.08);
-            border-color: rgba(2, 132, 199, 0.2);
-        }
-
-        .edge-toggle:focus-visible {
-            outline: 2px solid var(--accent);
-            outline-offset: 2px;
-        }
-
         /* Robot widget styles */
         .robot {
             position: fixed;
@@ -2059,7 +1884,7 @@
                 display: none !important;
             }
 
-            nav a, .edge-toggle {
+            nav a {
                 flex-shrink: 0 !important;
                 padding: 6px 12px !important;
                 font-size: 11px !important;
@@ -2156,30 +1981,86 @@
 
 <body>
 
-    <div id="loader" role="status" aria-live="polite" aria-label="Loading content">
-        <div class="loader-container" aria-hidden="true">
-            <div class="loader-ring loader-ring-1"></div>
-            <div class="loader-ring loader-ring-2"></div>
-            <div class="loader-ring loader-ring-3"></div>
-            <div class="loader-core"></div>
-            <div class="loader-s">S</div>
+    <div id="loader" role="status" aria-live="polite" aria-label="Initializing J.A.R.V.I.S. HUD system">
+        <div class="jarvis-hud-grid" aria-hidden="true"></div>
+        <div class="jarvis-corner corner-tl" aria-hidden="true"></div>
+        <div class="jarvis-corner corner-tr" aria-hidden="true"></div>
+        <div class="jarvis-corner corner-bl" aria-hidden="true"></div>
+        <div class="jarvis-corner corner-br" aria-hidden="true"></div>
+
+        <!-- Top Telemetry Header -->
+        <div class="jarvis-hud-header" aria-hidden="true">
+            <div class="jarvis-protocol-badge"><span class="hud-blink-dot"></span> J.A.R.V.I.S. PROTOCOL // MK-VII</div>
+            <div class="jarvis-sub-telemetry">SUDARSHAN SUNIL HADMODE · ARCHITECTURE MATRIX</div>
         </div>
-        <div class="loader-info" aria-hidden="false">
-            <div class="loader-eyebrow">Portfolio system</div>
-            <div class="loader-title">Sudarshan</div>
-            <div class="loader-subtitle">Preparing projects, certificates, and interactions</div>
-            <div class="loader-bar" aria-hidden="true">
-                <div class="loader-fill" style="width:0%"></div>
+
+        <!-- Center Chest Arc Reactor Core -->
+        <div class="jarvis-chest-wrap" aria-hidden="true">
+            <div class="jarvis-arc-aura"></div>
+            
+            <!-- Concentric Pulse Shockwaves -->
+            <div class="jarvis-shockwave sw-1"></div>
+            <div class="jarvis-shockwave sw-2"></div>
+            
+            <!-- Outer Rotor Ring with HUD Ticks -->
+            <div class="jarvis-rotor-outer">
+                <div class="rotor-tick t-0"></div>
+                <div class="rotor-tick t-30"></div>
+                <div class="rotor-tick t-60"></div>
+                <div class="rotor-tick t-90"></div>
+                <div class="rotor-tick t-120"></div>
+                <div class="rotor-tick t-150"></div>
+                <div class="rotor-tick t-180"></div>
+                <div class="rotor-tick t-210"></div>
+                <div class="rotor-tick t-240"></div>
+                <div class="rotor-tick t-270"></div>
+                <div class="rotor-tick t-300"></div>
+                <div class="rotor-tick t-330"></div>
             </div>
-            <div class="loader-meta">
-                <div class="loader-percent" aria-hidden="true">0%</div>
-                <div class="loader-text">Starting interface</div>
+
+            <!-- Middle Turbine Blades (Counter-Rotating) -->
+            <div class="jarvis-turbine-mid">
+                <div class="turbine-blade b-1"></div>
+                <div class="turbine-blade b-2"></div>
+                <div class="turbine-blade b-3"></div>
+                <div class="turbine-blade b-4"></div>
             </div>
-            <div class="loader-chips" aria-hidden="true">
-                <span class="loader-chip">AI</span>
-                <span class="loader-chip">Web</span>
-                <span class="loader-chip">UI/UX</span>
+
+            <!-- Inner Arc Emitter Core -->
+            <div class="jarvis-arc-emitter">
+                <div class="jarvis-plasma-core">
+                    <span class="jarvis-core-symbol">⚡</span>
+                </div>
             </div>
+
+            <!-- Targeting Crosshairs -->
+            <div class="jarvis-crosshair ch-h"></div>
+            <div class="jarvis-crosshair ch-v"></div>
+        </div>
+
+        <!-- Telemetry Data & Live Readout -->
+        <div class="jarvis-telemetry-panel">
+            <div class="jarvis-status-row">
+                <span class="jarvis-diag-badge">SYSTEM DIAG</span>
+                <span class="jarvis-status-txt loader-text">SYNCHRONIZING CORE MATRIX...</span>
+                <span class="jarvis-percent loader-percent">0%</span>
+            </div>
+
+            <!-- Segmented Gauge -->
+            <div class="jarvis-gauge-wrap" aria-hidden="true">
+                <div class="jarvis-gauge-fill loader-fill" style="width:0%"></div>
+            </div>
+
+            <!-- Live Diagnostic Terminal Streams -->
+            <div class="jarvis-terminal-log" aria-hidden="true">
+                <span class="log-prefix">&gt;</span> <span class="log-dynamic-line" id="jarvisLogLine">INITIALIZING ALUMNI AI ENGINE...</span>
+            </div>
+
+            <div class="jarvis-welcome-banner" id="jarvisWelcomeBanner">
+                WELCOME, OPERATOR
+            </div>
+            
+            <div class="jarvis-skip-hint">TAP ANYWHERE TO ENGAGE</div>
         </div>
     </div>
 
@@ -2190,11 +2071,7 @@
     <div class="orb orb-2"></div>
     <div class="orb orb-3"></div>
 
-    <!-- Edge color effects (visible while scrolling) -->
-    <div class="edge edge-top" aria-hidden="true"></div>
-    <div class="edge edge-right" aria-hidden="true"></div>
-    <div class="edge edge-bottom" aria-hidden="true"></div>
-    <div class="edge edge-left" aria-hidden="true"></div>
+
 
     <nav id="nav">
         <a href="#hero" class="active">Home</a>
@@ -2205,8 +2082,7 @@
         <a href="#projects">Projects</a>
         <a href="#contact">Contact</a>
         <a href="https://team-alum.vercel.app" target="_blank" rel="noopener noreferrer" style="color:var(--accent);font-weight:600;">Team Alum ↗</a>
-        <button id="edge-toggle" class="edge-toggle" aria-pressed="true" title="Toggle edge color effects">Edge
-            FX</button>
+
     </nav>
 
     <!-- Cute robot helper -->
@@ -2224,7 +2100,7 @@
 
     <!-- HERO -->
     <section id="hero">
-        <div class="hero-badge"><span></span>Available for collaboration</div>
+        <div class="hero-badge"><span class="hud-blink-dot"></span> J.A.R.V.I.S. // AI PRODUCT ARCHITECTURE & INNOVATION</div>
         <h1 class="hero-name"><span class="line1">Sudarshan</span><span class="line2"><span class="hero-midname">Sunil </span>Hadmode</span></h1>
         <p class="hero-tagline">Startup &amp; Founder of <a href="https://team-alum.vercel.app" target="_blank" rel="noopener noreferrer" style="color:var(--accent);text-decoration:none;"><em>Team Alum</em></a> &nbsp;·&nbsp; Alumni AI Developer &nbsp;·&nbsp; Building AI products &amp; websites
             &nbsp;·&nbsp; UI/UX Designer &nbsp;·&nbsp; Prompt Engineer</p>
@@ -2791,34 +2667,112 @@
     </section>
 
     <script>
-        // Loader (Guaranteed safety timeout + skip on tap)
+        // J.A.R.V.I.S. ARC REACTOR CHEST HUD LOADER CONTROLLER
         (function () {
             const loader = document.getElementById('loader');
             const fill = loader ? loader.querySelector('.loader-fill') : null;
             const percent = loader ? loader.querySelector('.loader-percent') : null;
             const text = loader ? loader.querySelector('.loader-text') : null;
+            const logLine = document.getElementById('jarvisLogLine');
+            const welcomeBanner = document.getElementById('jarvisWelcomeBanner');
             if (!loader || !fill || !percent || !text) return;
 
-            const states = [
-                [15, 'Warming up canvas'],
-                [35, 'Arranging verified projects'],
-                [55, 'Loading certifications'],
-                [75, 'Polishing interactions'],
-                [90, 'Preparing experience'],
-                [98, 'Opening portfolio']
+            // Synthesized Web Audio API J.A.R.V.I.S. Power-Up Chime
+            let audioCtx = null;
+            function playJarvisBootSound() {
+                try {
+                    const AudioContext = window.AudioContext || window.webkitAudioContext;
+                    if (!AudioContext) return;
+                    audioCtx = new AudioContext();
+                    const now = audioCtx.currentTime;
+
+                    // Power-up rising sci-fi frequency sweep
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    const filter = audioCtx.createBiquadFilter();
+
+                    filter.type = 'lowpass';
+                    filter.frequency.setValueAtTime(400, now);
+                    filter.frequency.exponentialRampToValueAtTime(3200, now + 1.2);
+
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(140, now);
+                    osc.frequency.exponentialRampToValueAtTime(587.33, now + 1.1);
+
+                    gain.gain.setValueAtTime(0.001, now);
+                    gain.gain.linearRampToValueAtTime(0.08, now + 0.3);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 1.3);
+
+                    osc.connect(filter);
+                    filter.connect(gain);
+                    gain.connect(audioCtx.destination);
+
+                    osc.start(now);
+                    osc.stop(now + 1.35);
+                } catch (e) {}
+            }
+
+            function playAccessGrantedChime() {
+                try {
+                    if (!audioCtx) {
+                        const AudioContext = window.AudioContext || window.webkitAudioContext;
+                        if (!AudioContext) return;
+                        audioCtx = new AudioContext();
+                    }
+                    const now = audioCtx.currentTime;
+                    [523.25, 783.99, 1046.50].forEach((freq, i) => {
+                        const osc = audioCtx.createOscillator();
+                        const gain = audioCtx.createGain();
+                        osc.type = 'sine';
+                        osc.frequency.setValueAtTime(freq, now + i * 0.08);
+                        gain.gain.setValueAtTime(0.09, now + i * 0.08);
+                        gain.gain.exponentialRampToValueAtTime(0.0001, now + i * 0.08 + 0.4);
+                        osc.connect(gain);
+                        gain.connect(audioCtx.destination);
+                        osc.start(now + i * 0.08);
+                        osc.stop(now + i * 0.08 + 0.45);
+                    });
+                } catch (e) {}
+            }
+
+            const diagnostics = [
+                [15, 'INITIALIZING J.A.R.V.I.S. PROTOCOL...', 'CALIBRATING ARC REACTOR CONDUITS...'],
+                [35, 'SYNCHRONIZING REASONING ENGINE...', 'CONNECTING ALUMNI AI REASONING CORE...'],
+                [55, 'CALIBRATING ARTIFACT STUDIO...', 'COMPILING ZERO-BLOAT VANILLA RUNTIME...'],
+                [75, 'VERIFYING BIOMETRIC SIGNATURE...', 'AUTHENTICATED: SUDARSHAN HADMODE (CREATOR)'],
+                [90, 'DIAGNOSTICS OPTIMAL (100%)...', 'ALL SYSTEMS ARMED & READY FOR ENGAGEMENT'],
+                [98, 'ACCESS GRANTED // SYSTEM READY', 'WELCOME TO SUDARSHAN\'S WORKSPACE']
             ];
+
             let progress = 0;
-            let stateIndex = 0;
+            let diagIndex = 0;
             let loaded = false;
             let dismissed = false;
+            let soundTriggered = false;
+
+            function triggerSound() {
+                if (!soundTriggered) {
+                    soundTriggered = true;
+                    playJarvisBootSound();
+                }
+            }
+
+            window.addEventListener('click', triggerSound, { once: true });
+            window.addEventListener('touchstart', triggerSound, { once: true, passive: true });
 
             function setProgress(value) {
                 progress = Math.max(progress, Math.min(100, Math.round(value)));
                 fill.style.width = progress + '%';
                 percent.textContent = progress + '%';
-                while (stateIndex < states.length && progress >= states[stateIndex][0]) {
-                    text.textContent = states[stateIndex][1];
-                    stateIndex++;
+                while (diagIndex < diagnostics.length && progress >= diagnostics[diagIndex][0]) {
+                    text.textContent = diagnostics[diagIndex][1];
+                    if (logLine) logLine.textContent = diagnostics[diagIndex][2];
+                    diagIndex++;
+                }
+                if (progress >= 85 && welcomeBanner) {
+                    welcomeBanner.textContent = 'WELCOME, OPERATOR';
+                    welcomeBanner.style.color = '#00f2fe';
+                    welcomeBanner.style.textShadow = '0 0 20px #00f2fe, 0 0 35px rgba(0,242,254,0.6)';
                 }
             }
 
@@ -2827,30 +2781,35 @@
                 dismissed = true;
                 clearInterval(tick);
                 setProgress(100);
-                loader.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+                playAccessGrantedChime();
+                if (welcomeBanner) welcomeBanner.textContent = 'SYSTEM ONLINE · WELCOME';
+                
+                // Energetic futuristic flash dismiss
+                loader.style.transition = 'opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
                 loader.style.opacity = '0';
+                loader.style.transform = 'scale(1.06)';
                 loader.style.pointerEvents = 'none';
-                setTimeout(() => { loader.style.display = 'none'; }, 420);
+                setTimeout(() => { loader.style.display = 'none'; }, 520);
             }
 
-            // Click or tap to instantly skip loader
+            // Click or tap to instantly engage/skip
             loader.addEventListener('click', dismissLoader);
             loader.addEventListener('touchstart', dismissLoader, { passive: true });
 
             const tick = setInterval(() => {
                 const ceiling = loaded ? 100 : 92;
-                const step = loaded ? 12 : Math.random() * 8 + 3;
+                const step = loaded ? 14 : Math.random() * 8 + 4;
                 setProgress(Math.min(ceiling, progress + step));
                 if (progress >= 100) {
                     dismissLoader();
                 }
-            }, 120);
+            }, 100);
 
-            // Safety timeout: Guarantee dismissal in 2.2s even on slow 3G/4G networks
+            // Safety timeout: Guarantee dismissal in 2.3s even on slow connections
             setTimeout(() => {
                 loaded = true;
                 dismissLoader();
-            }, 2200);
+            }, 2300);
 
             window.addEventListener('load', () => {
                 loaded = true;
@@ -2858,7 +2817,7 @@
             });
         })();
 
-        // Cursor (Only enabled on devices with mouse/fine pointer)
+                // Cursor (Only enabled on devices with mouse/fine pointer)
         (function() {
             const isTouch = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
             const cursor = document.getElementById('cursor'), ring = document.getElementById('cursor-ring');
@@ -2971,85 +2930,8 @@
             page.querySelectorAll('.reveal').forEach(el => { el.classList.remove('visible'); setTimeout(() => el.classList.add('visible'), 50); });
         }
 
-        // EDGE COLOR EFFECT — fast-changing gradients on page edges while scrolling
-        (function () {
-            if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-            const edgeEls = document.querySelectorAll('.edge');
-            if (!edgeEls.length) return;
-            let running = false;
-            let rafId = null;
-            let hue = 0;
-            let stopTimer = null;
-            const storageKey = 'edgeEffect';
-            const toggle = document.getElementById('edge-toggle');
-
-            function tick() {
-                hue = (hue + 14) % 360;
-                const h1 = Math.round(hue);
-                const h2 = (h1 + 60) % 360;
-                const h3 = (h1 + 120) % 360;
-                const h4 = (h1 + 240) % 360;
-                document.documentElement.style.setProperty('--edge-h1', h1);
-                document.documentElement.style.setProperty('--edge-h2', h2);
-                document.documentElement.style.setProperty('--edge-h3', h3);
-                document.documentElement.style.setProperty('--edge-h4', h4);
-                rafId = requestAnimationFrame(tick);
-            }
-
-            function startEdge() {
-                if (!isEnabled()) return;
-                edgeEls.forEach(el => el.classList.add('visible'));
-                if (!running) { running = true; tick(); }
-                clearTimeout(stopTimer);
-                stopTimer = setTimeout(stopEdge, 350);
-            }
-
-            function stopEdge() {
-                running = false;
-                edgeEls.forEach(el => el.classList.remove('visible'));
-                if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
-            }
-
-            function isEnabled() {
-                try { return localStorage.getItem(storageKey) !== 'off'; } catch (e) { return true; }
-            }
-
-            function setEnabled(v) {
-                try { localStorage.setItem(storageKey, v ? 'on' : 'off'); } catch (e) { }
-                if (v) {
-                    if (toggle) { toggle.setAttribute('aria-pressed', 'true'); toggle.classList.add('active'); }
-                } else {
-                    if (toggle) { toggle.setAttribute('aria-pressed', 'false'); toggle.classList.remove('active'); }
-                    stopEdge();
-                }
-            }
-
-            if (toggle) {
-                const enabled = isEnabled();
-                toggle.setAttribute('aria-pressed', enabled ? 'true' : 'false');
-                if (enabled) toggle.classList.add('active'); else toggle.classList.remove('active');
-                toggle.addEventListener('click', () => { setEnabled(!isEnabled()); });
-                toggle.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle.click(); } });
-            }
-
-            // initialize
-            if (!isEnabled()) { stopEdge(); }
-
-            window.addEventListener('scroll', startEdge, { passive: true });
-            window.addEventListener('wheel', startEdge, { passive: true });
-            window.addEventListener('touchmove', startEdge, { passive: true });
-
-            // boost hue on fast scroll
-            let lastY = window.scrollY;
-            window.addEventListener('scroll', () => {
-                const dy = Math.abs(window.scrollY - lastY);
-                lastY = window.scrollY;
-                if (dy > 80) hue = (hue + dy * 0.25) % 360;
-            }, { passive: true });
-
-            // open Instagram links in new tab by default for external links
-            document.querySelectorAll('a[href*="instagram.com"]').forEach(a => a.setAttribute('target', '_blank'));
-        })();
+        // external links
+        document.querySelectorAll('a[href*="instagram.com"]').forEach(a => a.setAttribute('target', '_blank'));
 
         // Robot helper: richer interactions — eye-tracking, typing bubble, idle talks, blinks
         (function () {
@@ -3128,8 +3010,7 @@
             function stopIdle() { clearInterval(idleInterval); }
 
             // Wire interactions
-            const edgeToggle = document.getElementById('edge-toggle');
-            if (edgeToggle) edgeToggle.addEventListener('click', () => showBubbleText('Edge FX toggled!', { speed: 14, stay: 900 }));
+
 
             document.querySelectorAll('.flip-card').forEach(fc => fc.addEventListener('click', () => showBubbleText('Nice certificate!', { speed: 16, stay: 1200 })));
 
