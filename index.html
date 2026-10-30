@@ -2004,9 +2004,9 @@
         <div class="reactor-hud-top" aria-hidden="true">
             <div class="reactor-system-badge">
                 <span class="reactor-pulse-dot"></span>
-                <span>SYSTEM KERNEL // SECURE RUNTIME</span>
+                <span>MAY AI // VOICE ASSISTANT &amp; CORE INTERFACE</span>
             </div>
-            <div class="reactor-sub-id">SUDARSHAN SUNIL HADMODE · ARCHITECTURE MATRIX</div>
+            <div class="reactor-sub-id">SUDARSHAN SUNIL HADMODE · ALUMNI AI PLATFORM</div>
         </div>
 
         <!-- Central Precision Arc Reactor Core -->
@@ -2070,11 +2070,11 @@
 
             <!-- Real-Time Engineering Log Stream -->
             <div class="reactor-terminal-feed" aria-hidden="true">
-                <span class="feed-prompt">&gt;</span> <span class="feed-text" id="reactorTerminalLog">INITIALIZING ZERO-BLOAT RUNTIME...</span>
+                <span class="feed-prompt">&gt;</span> <span class="feed-text" id="reactorTerminalLog">MAY: INITIALIZING VOICE ASSISTANT RUNTIME...</span>
             </div>
 
             <div class="reactor-welcome-msg" id="reactorWelcomeMsg">
-                WELCOME, VISITOR
+                MAY AI // INITIALIZING WORKSPACE
             </div>
 
             <div class="reactor-hint">TAP TO ENTER DIRECTLY</div>
@@ -2103,7 +2103,7 @@
     </nav>
 
     <!-- Cute robot helper -->
-    <div id="robot" class="robot" role="button" aria-label="Cute robot assistant" tabindex="0">
+    <div id="robot" class="robot" role="button" aria-label="May — Voice Assistant & AI Companion" tabindex="0">
         <svg viewBox="0 0 80 80" aria-hidden="true" focusable="false">
             <rect x="18" y="22" width="44" height="32" rx="6" fill="rgba(255,255,255,.06)" />
             <rect x="28" y="12" width="24" height="18" rx="4" fill="rgba(255,255,255,.08)" />
@@ -2112,7 +2112,7 @@
             <rect class="mouth" x="36" y="34" width="8" height="4" rx="2" />
             <rect class="antenna" x="38" y="6" width="4" height="6" rx="2" />
         </svg>
-        <div class="robot-bubble" aria-hidden="true">Hi!</div>
+        <div class="robot-bubble" aria-hidden="true">May ✦</div>
     </div>
 
     <!-- HERO -->
@@ -2684,7 +2684,7 @@
     </section>
 
     <script>
-        // EXECUTIVE CYBERNETIC ARC CORE CONTROLLER (6-SECOND PACED STARTUP)
+        // MAY AI ASSISTANT & ARC CORE CONTROLLER (~7.5 SECOND CINEMATIC PACING)
         (function () {
             const loader = document.getElementById('loader');
             const fill = loader ? loader.querySelector('.loader-fill') : null;
@@ -2702,7 +2702,7 @@
                     if (!AudioContext) return;
                     audioCtx = new AudioContext();
                     const now = audioCtx.currentTime;
-                    // Delicate executive double chime (C6 -> E6)
+                    // Delicate double harmonic chime
                     [523.25, 659.25].forEach((freq, i) => {
                         const osc = audioCtx.createOscillator();
                         const gain = audioCtx.createGain();
@@ -2718,20 +2718,20 @@
                 } catch (e) {}
             }
 
-            // Real, accurate engineering telemetry stages
+            // Real, mature May AI telemetry stages
             const telemetryStages = [
-                [14, 'INITIALIZING ARCHITECTURE MATRIX...', 'LOADING KERNEL & PERFORMANCE PROFILES...'],
-                [32, 'CALIBRATING ALUMNI AI ENGINE...', 'CONNECTING REASONING APIS & ATTACHMENT SUITE...'],
-                [52, 'SYNCING DATABASE & RLS ENCRYPTION...', 'VERIFYING SUPABASE ROW LEVEL SECURITY (RLS)...'],
-                [72, 'CONFIGURING VERIFIED WORKSPACE...', 'PREPARING ARTIFACT STUDIO & INTERACTIVE DEMOS...'],
-                [88, 'DIAGNOSTICS VERIFIED (100%)...', 'ENGINEERING RUNTIME NOMINAL // ALL SYSTEMS GO'],
-                [98, 'INITIALIZATION COMPLETE · 100%', 'ACCESS CONFIRMED · SUDARSHAN SUNIL HADMODE']
+                [12, 'MAY: INITIALIZING CORE INTERFACE...', 'MAY: CALIBRATING VOICE & REASONING MODULES...'],
+                [28, 'MAY: CONNECTING ALUMNI AI ENGINE...', 'ENGAGING MULTI-MODE REASONING APIS...'],
+                [48, 'MAY: SYNCHRONIZING ARTIFACT STUDIO...', 'INTEGRATING CHROME BROWSER RESEARCH SUITE...'],
+                [68, 'MAY: VERIFYING SUPABASE ENCRYPTION...', 'VERIFYING ROW LEVEL SECURITY & WORKSPACE DATA...'],
+                [84, 'MAY: ALL ARCHITECTURE SYSTEMS NOMINAL...', 'FINALIZING ZERO-FRAMEWORK RUNTIME CLIENT...'],
+                [96, 'MAY: BIOMETRIC LINK CONFIRMED · 100%', 'MAY: "WELCOME, SUDARSHAN. WORKSPACE INITIALIZED."']
             ];
 
             let progress = 0;
             let stageIndex = 0;
             let dismissed = false;
-            const totalDurationMs = 5800; // ~6 seconds total pacing
+            const totalDurationMs = 7400; // ~7.5 seconds total cinematic pacing
             const intervalStepMs = 60;
             const stepIncrement = (100 / (totalDurationMs / intervalStepMs));
 
@@ -2746,10 +2746,10 @@
                     stageIndex++;
                 }
 
-                if (progress >= 85 && welcomeMsg) {
-                    welcomeMsg.textContent = "WELCOME TO SUDARSHAN'S WORKSPACE";
+                if (progress >= 88 && welcomeMsg) {
+                    welcomeMsg.textContent = 'MAY: "WELCOME, SUDARSHAN."';
                     welcomeMsg.style.color = '#38bdf8';
-                    welcomeMsg.style.textShadow = '0 0 16px rgba(56, 189, 248, 0.7)';
+                    welcomeMsg.style.textShadow = '0 0 16px rgba(56, 189, 248, 0.75)';
                 }
             }
 
@@ -2759,9 +2759,9 @@
                 clearInterval(startupTimer);
                 setProgress(100);
                 playAccessGrantedChime();
-                if (welcomeMsg) welcomeMsg.textContent = "SYSTEM READY · ENTERING";
+                if (welcomeMsg) welcomeMsg.textContent = 'MAY: "SYSTEM ONLINE · ENTERING"';
 
-                // Refined executive fade transition
+                // Refined fade transition
                 loader.style.transition = 'opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
                 loader.style.opacity = '0';
                 loader.style.transform = 'scale(1.04)';
@@ -2773,16 +2773,16 @@
             loader.addEventListener('click', dismissLoader);
             loader.addEventListener('touchstart', dismissLoader, { passive: true });
 
-            // Steady 6-second timer
+            // Steady ~7.5 second pacing
             const startupTimer = setInterval(() => {
-                setProgress(progress + stepIncrement + (Math.random() * 0.4 - 0.2));
+                setProgress(progress + stepIncrement + (Math.random() * 0.3 - 0.15));
                 if (progress >= 100) {
                     dismissLoader();
                 }
             }, intervalStepMs);
 
-            // Hard safety timeout at 6.4s
-            setTimeout(dismissLoader, 6400);
+            // Hard safety timeout at 7.8s
+            setTimeout(dismissLoader, 7800);
         })();
 
                 // Cursor (Only enabled on devices with mouse/fine pointer)
@@ -2915,13 +2915,13 @@
             let idleInterval = null;
 
             const talks = [
-                'Hi! I\'m Sudarobot 🤖',
-                'Need help exploring?',
-                'Toggle Edge FX to see colors!',
-                'I love UI animations ✨',
-                'Built with passion in Pune 🇮🇳',
-                'Try clicking a cert card!',
-                'Follow me on Instagram?'
+                'Hi! I am May, Sudarshan\'s AI assistant ✦',
+                'Welcome to Team Alum & Alumni AI!',
+                'Exploring Sudarshan\'s projects?',
+                'Alumni AI has an integrated Chrome browser 🚀',
+                'Built with honest craftsmanship in Pune 🇮🇳',
+                'Click any project to test the live link!',
+                'Check out the verified projects above!'
             ];
 
             function randomTalk() { return talks[Math.floor(Math.random() * talks.length)]; }
@@ -2989,7 +2989,7 @@
 
             // Cleaned: Removed intrusive click triggers from page buttons
 
-            robot.addEventListener('click', () => { showBubbleText('Hey! How can I help?', { speed: 16, stay: 2000 }); robot.classList.add('wave'); setTimeout(() => robot.classList.remove('wave'), 900); });
+            robot.addEventListener('click', () => { showBubbleText('Hey! I am May, Sudarshan\'s AI voice assistant. Exploring the portfolio?', { speed: 16, stay: 2400 }); robot.classList.add('wave'); setTimeout(() => robot.classList.remove('wave'), 900); });
             robot.addEventListener('mouseenter', () => blink());
             robot.addEventListener('focus', () => blink());
 
