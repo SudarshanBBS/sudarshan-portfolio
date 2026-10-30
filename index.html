@@ -2126,6 +2126,31 @@
             }
         }
 
+    
+        /* iOS Safari 3D Flip Card & Safe Area Polish */
+        .flip-card-inner {
+            -webkit-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+        }
+        .flip-front, .flip-back {
+            -webkit-backface-visibility: hidden !important;
+            backface-visibility: hidden !important;
+        }
+        @supports (padding-top: env(safe-area-inset-top)) {
+            nav {
+                top: max(10px, env(safe-area-inset-top)) !important;
+            }
+            body {
+                padding-bottom: max(16px, env(safe-area-inset-bottom)) !important;
+            }
+        }
+        @media (hover: none) and (pointer: coarse) {
+            #cursor, #cursor-ring, .cursor, .cursor-ring {
+                display: none !important;
+                visibility: hidden !important;
+                opacity: 0 !important;
+            }
+        }
     </style>
 </head>
 
@@ -2252,35 +2277,35 @@
             <div class="skills-grid">
                 <div class="skill-card reveal" style="--ca:#3b82f6"><span class="skill-icon">🐍</span>
                     <div class="skill-name">Python</div>
-                    <div class="skill-sub">Data · Automation · AI</div>
+                    <div class="skill-sub">FastAPI · Automation · AI Models</div>
                 </div>
-                <div class="skill-card reveal reveal-d1" style="--ca:#f59e0b"><span class="skill-icon">☕</span>
-                    <div class="skill-name">Java</div>
-                    <div class="skill-sub">Backend · OOP</div>
+                <div class="skill-card reveal reveal-d1" style="--ca:#f59e0b"><span class="skill-icon">⚡</span>
+                    <div class="skill-name">JavaScript &amp; TypeScript</div>
+                    <div class="skill-sub">ES6+ · Vanilla JS · Next.js 15</div>
                 </div>
                 <div class="skill-card reveal reveal-d2" style="--ca:#f97316"><span class="skill-icon">🌐</span>
-                    <div class="skill-name">HTML &amp; CSS</div>
-                    <div class="skill-sub">Web · Animations</div>
+                    <div class="skill-name">HTML5 &amp; CSS3</div>
+                    <div class="skill-sub">Glassmorphism · Responsive · FX</div>
                 </div>
                 <div class="skill-card reveal reveal-d3" style="--ca:#a78bfa"><span class="skill-icon">🎨</span>
                     <div class="skill-name">UI/UX Design</div>
-                    <div class="skill-sub">Figma · Interfaces</div>
+                    <div class="skill-sub">Figma · Micro-Interactions · Clean</div>
                 </div>
                 <div class="skill-card reveal" style="--ca:#6ee7f7"><span class="skill-icon">🤖</span>
-                    <div class="skill-name">Prompt Engineer</div>
-                    <div class="skill-sub">AI Workflows · LLMs</div>
+                    <div class="skill-name">Prompt Engineering</div>
+                    <div class="skill-sub">Context Windows · Tool Calling · Reasoning</div>
                 </div>
-                <div class="skill-card reveal reveal-d1" style="--ca:#f472b6"><span class="skill-icon">⚡</span>
-                    <div class="skill-name">AI Products</div>
-                    <div class="skill-sub">Building · Integrating</div>
+                <div class="skill-card reveal reveal-d1" style="--ca:#f472b6"><span class="skill-icon">🧠</span>
+                    <div class="skill-name">AI Systems &amp; Artifacts</div>
+                    <div class="skill-sub">Multi-Mode AI · Chrome Browser Engine</div>
                 </div>
-                <div class="skill-card reveal reveal-d2" style="--ca:#34d399"><span class="skill-icon">🔗</span>
-                    <div class="skill-name">Kafka / APIs</div>
-                    <div class="skill-sub">REST · Integration</div>
+                <div class="skill-card reveal reveal-d2" style="--ca:#34d399"><span class="skill-icon">🗄️</span>
+                    <div class="skill-name">Supabase &amp; SQL</div>
+                    <div class="skill-sub">PostgreSQL · Row Level Security (RLS)</div>
                 </div>
-                <div class="skill-card reveal reveal-d3" style="--ca:#fbbf24"><span class="skill-icon">☁️</span>
-                    <div class="skill-name">Cloud Concepts</div>
-                    <div class="skill-sub">Azure · Services</div>
+                <div class="skill-card reveal reveal-d3" style="--ca:#38bdf8"><span class="skill-icon">☁️</span>
+                    <div class="skill-name">Cloud &amp; Deployment</div>
+                    <div class="skill-sub">Vercel · Edge · Git &amp; Open Source</div>
                 </div>
             </div>
         </div>
@@ -2549,10 +2574,7 @@
                     <div class="cert-info-panel reveal reveal-d2">
                         <div class="cert-issuer">Microsoft Learn</div>
                         <h3 class="cert-title-big">Introduction to Generative AI and Agents</h3>
-                        <p class="cert-desc">Completed 9 February 2026 via Microsoft Learn, endorsed by Satya Narayana
-                            Nadella. Covers foundational concepts of generative AI models, architectures, real-world
-                            applications, and autonomous AI agents — an early milestone in Sudarshan's deep AI learning
-                            journey.</p>
+                        <p class="cert-desc">Completed February 2026 via Microsoft Learn. Covers foundational concepts of generative AI models, architecture principles, real-world application workflows, and autonomous AI agents.</p>
                         <div class="cert-tags"><span class="cert-tag">Generative AI</span><span class="cert-tag">AI
                                 Agents</span><span class="cert-tag">LLMs</span></div>
                         <div class="cert-meta">
@@ -2667,6 +2689,7 @@
             <div class="section-label">Work</div>
             <h2 class="section-title"><span class="grad">Projects</span></h2>
             <div class="projects-grid">
+                <!-- 1. Team Alum -->
                 <div class="project-card reveal" style="--pc1:#6ee7f7;--pc2:#a78bfa"><span
                         class="project-icon">🌐</span>
                     <div class="project-name">Team Alum</div>
@@ -2677,10 +2700,12 @@
                         <a href="https://team-alum.vercel.app" target="_blank" rel="noopener noreferrer" class="btn-primary" style="display:inline-block;padding:7px 16px;font-size:12px;border-radius:20px;text-decoration:none;">Visit Website ↗</a>
                     </div>
                 </div>
+
+                <!-- 2. Alumni AI -->
                 <div class="project-card reveal" style="--pc1:#6ee7f7;--pc2:#a78bfa"><span
                         class="project-icon">🤖</span>
                     <div class="project-name">Alumni AI</div>
-                                        <p class="project-desc">Advanced multi-mode AI system featuring Artifact Studio for live interactive code &amp; app preview, autonomous web research powered by Chrome, and student workflows.</p>
+                    <p class="project-desc">Advanced multi-mode AI system featuring Artifact Studio for live interactive code &amp; app preview, autonomous web research powered by Chrome, and student productivity workflows.</p>
                     <div class="project-stack"><span class="stack-pill">Artifact Studio</span><span
                             class="stack-pill">Chrome Research</span><span class="stack-pill">FastAPI</span><span class="stack-pill">Vercel</span></div>
                     <div style="margin-top: 14px; display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
@@ -2688,6 +2713,8 @@
                         <a href="https://team-alum.vercel.app" target="_blank" rel="noopener noreferrer" style="color:var(--accent);font-size:13px;text-decoration:none;font-weight:600;display:inline-flex;align-items:center;gap:4px;">Team Alum ↗</a>
                     </div>
                 </div>
+
+                <!-- 3. Atlera Timer -->
                 <div class="project-card reveal reveal-d1" style="--pc1:#0284c7;--pc2:#7c3aed"><span
                         class="project-icon">⏱️</span>
                     <div class="project-name">Atlera Timer</div>
@@ -2698,30 +2725,41 @@
                         <a href="https://atlera-timer.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn-primary" style="display:inline-block;padding:7px 16px;font-size:12px;border-radius:20px;text-decoration:none;">Launch Timer ↗</a>
                     </div>
                 </div>
-                <div class="project-card reveal reveal-d2" style="--pc1:#fbbf24;--pc2:#f97316"><span
-                        class="project-icon">🔢</span>
-                    <div class="project-name">Calculator</div>
-                    <p class="project-desc">A sleek fully-functional calculator with clean UI, standard and scientific
-                        operations, smooth animations, and a responsive layout.</p>
-                    <div class="project-stack"><span class="stack-pill">HTML</span><span
-                            class="stack-pill">CSS</span><span class="stack-pill">JavaScript</span></div>
-                </div>
-                <div class="project-card reveal reveal-d2" style="--pc1:#34d399;--pc2:#6ee7f7"><span
-                        class="project-icon">📚</span>
-                    <div class="project-name">Student Reminder App</div>
-                    <p class="project-desc">Smart reminder app for students to manage assignments, exams, and deadlines
-                        with intelligent notifications and clean task management.</p>
-                    <div class="project-stack"><span class="stack-pill">Python</span><span
-                            class="stack-pill">UI/UX</span><span class="stack-pill">Automation</span></div>
-                </div>
-                <div class="project-card reveal reveal-d3" style="--pc1:#f472b6;--pc2:#a78bfa"><span
-                        class="project-icon">🎂</span>
-                    <div class="project-name">Birthday Websites</div>
-                    <p class="project-desc">Personalised animated birthday micro-sites for clients — custom animations,
-                        photo galleries, and unique 3D visual effects tailored to each recipient.</p>
-                    <div class="project-stack"><span class="stack-pill">HTML/CSS</span><span
-                            class="stack-pill">JavaScript</span><span class="stack-pill">3D/Animation</span></div>
 
+                <!-- 4. Teamalum Bookstore -->
+                <div class="project-card reveal reveal-d2" style="--pc1:#f59e0b;--pc2:#ea580c"><span
+                        class="project-icon">📚</span>
+                    <div class="project-name">Prompt Engineering Blueprint</div>
+                    <p class="project-desc">Official digital bookstore and publishing platform for prompt engineering guides, powered by vanilla web technologies and Supabase with verified Row Level Security.</p>
+                    <div class="project-stack"><span class="stack-pill">Vanilla JS</span><span
+                            class="stack-pill">Supabase RLS</span><span class="stack-pill">E-Commerce</span><span class="stack-pill">Vercel</span></div>
+                    <div style="margin-top: 14px;">
+                        <a href="https://teamalum-bookstore.vercel.app" target="_blank" rel="noopener noreferrer" class="btn-primary" style="display:inline-block;padding:7px 16px;font-size:12px;border-radius:20px;text-decoration:none;">Visit Bookstore ↗</a>
+                    </div>
+                </div>
+
+                <!-- 5. Newton 3D Simulation -->
+                <div class="project-card reveal reveal-d2" style="--pc1:#10b981;--pc2:#06b6d4"><span
+                        class="project-icon">🍎</span>
+                    <div class="project-name">Newton 3D Gravity Simulation</div>
+                    <p class="project-desc">Interactive 3D physics visualization simulating Sir Isaac Newton's universal gravitation, orbital trajectories, and apple theory with native canvas rendering.</p>
+                    <div class="project-stack"><span class="stack-pill">JavaScript</span><span
+                            class="stack-pill">Canvas API</span><span class="stack-pill">Physics Simulation</span></div>
+                    <div style="margin-top: 14px;">
+                        <a href="https://sudarshandev-llm.github.io/newton-simulation-appletheory/" target="_blank" rel="noopener noreferrer" class="btn-primary" style="display:inline-block;padding:7px 16px;font-size:12px;border-radius:20px;text-decoration:none;">Launch Simulation ↗</a>
+                    </div>
+                </div>
+
+                <!-- 6. AgentForge Platform -->
+                <div class="project-card reveal reveal-d3" style="--pc1:#8b5cf6;--pc2:#ec4899"><span
+                        class="project-icon">⚡</span>
+                    <div class="project-name">AgentForge Platform</div>
+                    <p class="project-desc">Open-source AI Agent Platform to build, evaluate, and orchestrate intelligent autonomous agents at scale with Next.js 15, TypeScript, and Docker containerization.</p>
+                    <div class="project-stack"><span class="stack-pill">Next.js 15</span><span
+                            class="stack-pill">TypeScript</span><span class="stack-pill">Docker</span><span class="stack-pill">AI Agents</span></div>
+                    <div style="margin-top: 14px;">
+                        <a href="https://github.com/sudarshandev-llm/agent-forge-prototype" target="_blank" rel="noopener noreferrer" class="btn-primary" style="display:inline-block;padding:7px 16px;font-size:12px;border-radius:20px;text-decoration:none;">View on GitHub ↗</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -2753,7 +2791,7 @@
     </section>
 
     <script>
-        // Loader
+        // Loader (Guaranteed safety timeout + skip on tap)
         (function () {
             const loader = document.getElementById('loader');
             const fill = loader ? loader.querySelector('.loader-fill') : null;
@@ -2762,16 +2800,17 @@
             if (!loader || !fill || !percent || !text) return;
 
             const states = [
-                [12, 'Warming up canvas'],
-                [28, 'Arranging sections'],
-                [46, 'Loading certificates'],
-                [64, 'Polishing interactions'],
-                [82, 'Preparing contact links'],
-                [96, 'Almost ready']
+                [15, 'Warming up canvas'],
+                [35, 'Arranging verified projects'],
+                [55, 'Loading certifications'],
+                [75, 'Polishing interactions'],
+                [90, 'Preparing experience'],
+                [98, 'Opening portfolio']
             ];
             let progress = 0;
             let stateIndex = 0;
             let loaded = false;
+            let dismissed = false;
 
             function setProgress(value) {
                 progress = Math.max(progress, Math.min(100, Math.round(value)));
@@ -2783,63 +2822,128 @@
                 }
             }
 
+            function dismissLoader() {
+                if (dismissed) return;
+                dismissed = true;
+                clearInterval(tick);
+                setProgress(100);
+                loader.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+                loader.style.opacity = '0';
+                loader.style.pointerEvents = 'none';
+                setTimeout(() => { loader.style.display = 'none'; }, 420);
+            }
+
+            // Click or tap to instantly skip loader
+            loader.addEventListener('click', dismissLoader);
+            loader.addEventListener('touchstart', dismissLoader, { passive: true });
+
             const tick = setInterval(() => {
-                const ceiling = loaded ? 100 : 88;
-                const step = loaded ? 7 : Math.random() * 8 + 2;
+                const ceiling = loaded ? 100 : 92;
+                const step = loaded ? 12 : Math.random() * 8 + 3;
                 setProgress(Math.min(ceiling, progress + step));
-                if (loaded && progress >= 100) {
-                    clearInterval(tick);
-                    text.textContent = 'Opening portfolio';
-                    setTimeout(() => {
-                        loader.style.animation = 'loaderOut .65s forwards';
-                        setTimeout(() => loader.style.display = 'none', 700);
-                    }, 260);
+                if (progress >= 100) {
+                    dismissLoader();
                 }
-            }, 180);
+            }, 120);
+
+            // Safety timeout: Guarantee dismissal in 2.2s even on slow 3G/4G networks
+            setTimeout(() => {
+                loaded = true;
+                dismissLoader();
+            }, 2200);
 
             window.addEventListener('load', () => {
                 loaded = true;
-                setProgress(Math.max(progress, 92));
+                setProgress(Math.max(progress, 96));
             });
         })();
 
-        // Cursor
-        const cursor = document.getElementById('cursor'), ring = document.getElementById('cursor-ring');
-        let mx = 0, my = 0, rx = 0, ry = 0;
-        document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
-        (function animC() {
-            cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
-            rx += (mx - rx) * .12; ry += (my - ry) * .12;
-            ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
-            requestAnimationFrame(animC);
-        })();
-        document.querySelectorAll('a,button,.skill-card,.project-card,.cert-tab,.flip-card').forEach(el => {
-            el.addEventListener('mouseenter', () => { cursor.style.width = '20px'; cursor.style.height = '20px'; ring.style.opacity = '0'; });
-            el.addEventListener('mouseleave', () => { cursor.style.width = '12px'; cursor.style.height = '12px'; ring.style.opacity = '.5'; });
-        });
-
-        // Canvas
-        const canvas = document.getElementById('bg-canvas'), ctx = canvas.getContext('2d');
-        let W, H, pts = [];
-        function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
-        resize(); window.addEventListener('resize', resize);
-        class P { constructor() { this.r(); } r() { this.x = Math.random() * W; this.y = Math.random() * H; this.size = Math.random() * 1.5 + .3; this.vx = (Math.random() - .5) * .3; this.vy = (Math.random() - .5) * .3; this.a = Math.random() * .4 + .1; const c = ['2,132,199', '124,58,237', '219,39,119']; this.c = c[Math.floor(Math.random() * 3)]; } update() { this.x += this.vx; this.y += this.vy; if (this.x < 0 || this.x > W || this.y < 0 || this.y > H) this.r(); } draw() { ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fillStyle = `rgba(${this.c},${this.a})`; ctx.fill(); } }
-        for (let i = 0; i < 100; i++)pts.push(new P());
-        (function animCanvas() {
-            ctx.clearRect(0, 0, W, H);
-            ctx.strokeStyle = 'rgba(15,23,42,.035)'; ctx.lineWidth = 1;
-            for (let x = 0; x < W; x += 80) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke(); }
-            for (let y = 0; y < H; y += 80) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke(); }
-            pts.forEach(p => { p.update(); p.draw(); });
-            for (let i = 0; i < pts.length; i++)for (let j = i + 1; j < pts.length; j++) {
-                const dx = pts[i].x - pts[j].x, dy = pts[i].y - pts[j].y, d = Math.sqrt(dx * dx + dy * dy);
-                if (d < 90) { ctx.beginPath(); ctx.moveTo(pts[i].x, pts[i].y); ctx.lineTo(pts[j].x, pts[j].y); ctx.strokeStyle = `rgba(110,231,247,${.05 * (1 - d / 90)})`; ctx.lineWidth = .5; ctx.stroke(); }
+        // Cursor (Only enabled on devices with mouse/fine pointer)
+        (function() {
+            const isTouch = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+            const cursor = document.getElementById('cursor'), ring = document.getElementById('cursor-ring');
+            if (isTouch) {
+                if (cursor) cursor.style.display = 'none';
+                if (ring) ring.style.display = 'none';
+                return;
             }
-            requestAnimationFrame(animCanvas);
+            if (!cursor || !ring) return;
+            let mx = -100, my = -100, rx = -100, ry = -100;
+            document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+            (function animC() {
+                cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
+                rx += (mx - rx) * .15; ry += (my - ry) * .15;
+                ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+                requestAnimationFrame(animC);
+            })();
+            document.querySelectorAll('a,button,.skill-card,.project-card,.cert-tab,.flip-card').forEach(el => {
+                el.addEventListener('mouseenter', () => { cursor.style.width = '20px'; cursor.style.height = '20px'; ring.style.opacity = '0'; });
+                el.addEventListener('mouseleave', () => { cursor.style.width = '12px'; cursor.style.height = '12px'; ring.style.opacity = '.5'; });
+            });
+        })();
+
+        // Canvas (Adaptive particle count for smooth 60fps on Android/iOS)
+        (function() {
+            const canvas = document.getElementById('bg-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            let W, H, pts = [];
+            const isMobile = window.innerWidth <= 768;
+            const particleCount = isMobile ? 35 : 80;
+            function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+            resize(); window.addEventListener('resize', resize, { passive: true });
+            class P {
+                constructor() { this.r(); }
+                r() {
+                    this.x = Math.random() * W; this.y = Math.random() * H;
+                    this.size = Math.random() * 1.5 + .4;
+                    this.vx = (Math.random() - .5) * .3;
+                    this.vy = (Math.random() - .5) * .3;
+                    this.a = Math.random() * .4 + .1;
+                    const c = ['2,132,199', '124,58,237', '14,165,233'];
+                    this.c = c[Math.floor(Math.random() * c.length)];
+                }
+                update() {
+                    this.x += this.vx; this.y += this.vy;
+                    if (this.x < 0 || this.x > W || this.y < 0 || this.y > H) this.r();
+                }
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(${this.c},${this.a})`;
+                    ctx.fill();
+                }
+            }
+            for (let i = 0; i < particleCount; i++) pts.push(new P());
+            (function animCanvas() {
+                ctx.clearRect(0, 0, W, H);
+                ctx.strokeStyle = 'rgba(15,23,42,.03)'; ctx.lineWidth = 1;
+                const step = isMobile ? 120 : 80;
+                for (let x = 0; x < W; x += step) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke(); }
+                for (let y = 0; y < H; y += step) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke(); }
+                pts.forEach(p => { p.update(); p.draw(); });
+                const maxDist = isMobile ? 70 : 90;
+                for (let i = 0; i < pts.length; i++) {
+                    for (let j = i + 1; j < pts.length; j++) {
+                        const dx = pts[i].x - pts[j].x, dy = pts[i].y - pts[j].y, d = Math.hypot(dx, dy);
+                        if (d < maxDist) {
+                            ctx.beginPath();
+                            ctx.moveTo(pts[i].x, pts[i].y);
+                            ctx.lineTo(pts[j].x, pts[j].y);
+                            ctx.strokeStyle = `rgba(14,165,233,${.06 * (1 - d / maxDist)})`;
+                            ctx.lineWidth = .5;
+                            ctx.stroke();
+                        }
+                    }
+                }
+                requestAnimationFrame(animCanvas);
+            })();
         })();
 
         // Reveal
-        const obs = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: .12 });
+        const obs = new IntersectionObserver(entries => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+        }, { threshold: .1 });
         document.querySelectorAll('.reveal, .timeline-item').forEach(el => obs.observe(el));
 
         // Active nav
@@ -3034,7 +3138,7 @@
                 a.addEventListener('mouseenter', () => showBubbleText('Hello there!', { speed: 18, stay: 600 }));
             });
 
-            document.querySelectorAll('.btn-primary, .btn-ghost, .project-card, nav a').forEach(el => el.addEventListener('click', () => showBubbleText('Great choice!', { speed: 18, stay: 700 })));
+            // Cleaned: Removed intrusive click triggers from page buttons
 
             robot.addEventListener('click', () => { showBubbleText('Hey! How can I help?', { speed: 16, stay: 2000 }); robot.classList.add('wave'); setTimeout(() => robot.classList.remove('wave'), 900); });
             robot.addEventListener('mouseenter', () => blink());
