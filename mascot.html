@@ -1,0 +1,1808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Buddy Bot · BrandMotion #119 — 3D Mascot Studio</title>
+    <meta name="description" content="BrandMotion #119 · Buddy Bot — Code-only 3D robot mascot with live canvas expressions, reaction state machine, typed replies, and scroll-linked storytelling.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Three.js r169 Import Map -->
+    <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"
+      }
+    }
+    </script>
+
+    <style>
+        :root {
+            --fd: 'Bricolage Grotesque', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --fb: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            
+            /* Active Theme Presets (Overridden by JS Preset switcher) */
+            --bg: #090d16;
+            --bg-glass: rgba(15, 23, 42, 0.72);
+            --bg-card: rgba(15, 23, 42, 0.65);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --card-hover: rgba(255, 255, 255, 0.14);
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #38bdf8;
+            --accent-glow: rgba(56, 189, 248, 0.35);
+            --accent-gradient: linear-gradient(135deg, #38bdf8, #2563eb);
+            --surface-pill: rgba(255, 255, 255, 0.06);
+            --btn-glow: 0 0 24px rgba(56, 189, 248, 0.4);
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: var(--fb);
+        }
+
+        body {
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+            background: radial-gradient(circle at 50% 20%, rgba(56, 189, 248, 0.05), transparent 60%),
+                        radial-gradient(circle at 80% 80%, rgba(37, 99, 235, 0.04), transparent 50%),
+                        var(--bg);
+            transition: background-color 0.5s ease;
+        }
+
+        /* Fixed 3D WebGL Canvas */
+        #webgl-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 1;
+            pointer-events: none;
+            display: block;
+        }
+
+        /* Interactive Pointer Layer for Orbit / Head Look */
+        #pointer-catch {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        /* Foreground Content Wrapper */
+        .content-layer {
+            position: relative;
+            z-index: 10;
+            pointer-events: auto;
+        }
+
+        /* Top Navigation Bar */
+        .nav-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 72px;
+            padding: 0 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(9, 13, 22, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--card-border);
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--text);
+            font-family: var(--fd);
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .brand-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            background: var(--surface-pill);
+            border: 1px solid var(--card-border);
+            border-radius: 8px;
+            font-size: 1rem;
+            box-shadow: var(--btn-glow);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--text);
+        }
+
+        .nav-cta {
+            padding: 0.5rem 1.1rem;
+            background: var(--surface-pill);
+            border: 1px solid var(--card-border);
+            border-radius: 999px;
+            color: var(--text);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            backdrop-filter: blur(8px);
+        }
+
+        .nav-cta:hover {
+            border-color: var(--accent);
+            box-shadow: 0 0 16px var(--accent-glow);
+            transform: translateY(-1px);
+        }
+
+        /* Main Scroll Sections */
+        section {
+            min-height: 100vh;
+            padding: 100px 2rem 4rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        /* Hero Section */
+        #hero {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            align-items: center;
+            gap: 2rem;
+            padding-top: 120px;
+        }
+
+        .hero-content {
+            max-width: 620px;
+        }
+
+        .hero-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 0.9rem;
+            border-radius: 999px;
+            background: var(--surface-pill);
+            border: 1px solid var(--card-border);
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            box-shadow: 0 0 20px var(--accent-glow);
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent);
+            box-shadow: 0 0 8px var(--accent);
+            animation: pulse-dot-anim 2s infinite;
+        }
+
+        @keyframes pulse-dot-anim {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.4); opacity: 0.6; }
+        }
+
+        .hero-title {
+            font-family: var(--fd);
+            font-size: clamp(2.5rem, 5.5vw, 4.2rem);
+            font-weight: 800;
+            line-height: 1.08;
+            letter-spacing: -0.03em;
+            margin-bottom: 1.25rem;
+            color: var(--text);
+        }
+
+        .hero-title span.accent-text {
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-desc {
+            font-size: 1.125rem;
+            line-height: 1.6;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            max-width: 520px;
+        }
+
+        /* Chat Hero Interactive Console */
+        .chat-console {
+            background: var(--bg-glass);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 1.5rem;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            max-width: 540px;
+        }
+
+        .chat-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--card-border);
+            padding-bottom: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .chat-bot-status {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .chat-bot-avatar {
+            width: 24px;
+            height: 24px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            color: #000;
+        }
+
+        .chat-badge {
+            font-size: 0.75rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 6px;
+            background: rgba(255,255,255,0.06);
+            color: var(--text-muted);
+            font-family: monospace;
+        }
+
+        .chat-feed {
+            min-height: 75px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            margin-bottom: 1.25rem;
+        }
+
+        .buddy-speech-bubble {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--card-border);
+            border-left: 3px solid var(--accent);
+            border-radius: 12px;
+            padding: 0.9rem 1.1rem;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: var(--text);
+            position: relative;
+        }
+
+        .typing-cursor {
+            display: inline-block;
+            width: 6px;
+            height: 14px;
+            background: var(--accent);
+            margin-left: 4px;
+            vertical-align: middle;
+            animation: blink-cur 0.8s infinite;
+        }
+
+        @keyframes blink-cur {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* Reply Chips */
+        .reply-chips-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            margin-bottom: 0.6rem;
+        }
+
+        .reply-chips-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .reply-chip {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--card-border);
+            border-radius: 999px;
+            padding: 0.45rem 0.9rem;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text);
+            cursor: pointer;
+            transition: all 0.2s var(--ease-out-expo);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .reply-chip:hover {
+            background: var(--surface-pill);
+            border-color: var(--accent);
+            box-shadow: 0 0 12px var(--accent-glow);
+            transform: translateY(-2px);
+            color: var(--accent);
+        }
+
+        .reply-chip:active {
+            transform: translateY(0);
+        }
+
+        /* Chat Input Form */
+        .chat-input-form {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .chat-input {
+            flex: 1;
+            background: rgba(0, 0, 0, 0.25);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 0.7rem 1rem;
+            font-size: 0.9rem;
+            color: var(--text);
+            font-family: var(--fb);
+            outline: none;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .chat-input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 12px var(--accent-glow);
+        }
+
+        .chat-send-btn {
+            background: var(--accent);
+            color: #040711;
+            font-weight: 700;
+            border: none;
+            border-radius: 12px;
+            padding: 0 1.25rem;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.2s var(--ease-out-expo);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.3rem;
+        }
+
+        .chat-send-btn:hover {
+            box-shadow: 0 0 16px var(--accent-glow);
+            transform: translateY(-1px);
+        }
+
+        /* 3D Visualizer Placeholder spacer in grid */
+        .hero-3d-spacer {
+            min-height: 480px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+        }
+
+        /* Section 2: What Buddy Does All Day */
+        #what-buddy-does {
+            padding-top: 140px;
+        }
+
+        .section-header {
+            max-width: 640px;
+            margin-bottom: 3.5rem;
+        }
+
+        .section-title {
+            font-family: var(--fd);
+            font-size: clamp(2rem, 4vw, 3.2rem);
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            line-height: 1.15;
+            margin-bottom: 1rem;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 4rem;
+        }
+
+        .feature-card {
+            background: var(--bg-card);
+            border: 1px solid var(--card-border);
+            border-radius: 18px;
+            padding: 2rem;
+            backdrop-filter: blur(12px);
+            transition: all 0.3s var(--ease-out-expo);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card:hover {
+            border-color: var(--card-hover);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--accent-gradient);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .card-icon {
+            font-size: 2rem;
+            margin-bottom: 1.25rem;
+            display: inline-block;
+        }
+
+        .card-title {
+            font-family: var(--fd);
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: var(--text);
+        }
+
+        .card-desc {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--text-muted);
+        }
+
+        /* Stats Strip */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            background: var(--bg-card);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 2.5rem;
+            backdrop-filter: blur(16px);
+        }
+
+        .stat-item {
+            text-align: left;
+        }
+
+        .stat-num {
+            font-family: var(--fd);
+            font-size: 2.75rem;
+            font-weight: 800;
+            color: var(--text);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 600;
+        }
+
+        /* Section 3: Say Hello (Call to Action) */
+        #say-hello {
+            padding-top: 140px;
+            padding-bottom: 100px;
+        }
+
+        .cta-box {
+            background: linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01));
+            border: 1px solid var(--card-border);
+            border-radius: 28px;
+            padding: 4rem 3rem;
+            text-align: center;
+            backdrop-filter: blur(20px);
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+        }
+
+        .cta-box .section-title {
+            margin-bottom: 1rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2.5rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-main {
+            padding: 0.9rem 2rem;
+            background: var(--accent);
+            color: #050811;
+            font-weight: 700;
+            font-size: 1rem;
+            border-radius: 999px;
+            text-decoration: none;
+            transition: all 0.25s var(--ease-out-expo);
+            box-shadow: 0 0 24px var(--accent-glow);
+        }
+
+        .btn-main:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 36px var(--accent-glow);
+        }
+
+        .btn-ghost {
+            padding: 0.9rem 2rem;
+            background: var(--surface-pill);
+            border: 1px solid var(--card-border);
+            color: var(--text);
+            font-weight: 600;
+            font-size: 1rem;
+            border-radius: 999px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .btn-ghost:hover {
+            border-color: var(--card-hover);
+            background: rgba(255,255,255,0.1);
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--card-border);
+            padding: 3rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-brand {
+            font-family: var(--fd);
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        /* 4-Preset Floating Swatch Dock (BrandMotion) */
+        .bm-dock {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 999px;
+            padding: 6px 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            z-index: 1000;
+            transition: transform 0.2s ease;
+        }
+
+        .bm-dock-label {
+            font-size: 0.72rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            margin-right: 2px;
+            padding-left: 4px;
+        }
+
+        .swatch-btn {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            outline: none;
+            position: relative;
+        }
+
+        .swatch-btn:hover {
+            transform: scale(1.15);
+        }
+
+        .swatch-btn.active {
+            border-color: #ffffff;
+            box-shadow: 0 0 12px currentColor;
+            transform: scale(1.15);
+        }
+
+        .swatch-btn.crimson { background: #e11d48; color: #e11d48; }
+        .swatch-btn.cobalt  { background: #2563eb; color: #2563eb; }
+        .swatch-btn.lime    { background: #84cc16; color: #84cc16; }
+        .swatch-btn.grape   { background: #8b5cf6; color: #8b5cf6; }
+
+        /* Mascot Mode Pill indicator */
+        .mascot-action-tag {
+            display: inline-block;
+            font-size: 0.75rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.06);
+            color: var(--accent);
+            font-family: monospace;
+            margin-left: 0.5rem;
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 900px) {
+            #hero {
+                grid-template-columns: 1fr;
+                padding-top: 100px;
+                text-align: left;
+            }
+
+            .hero-3d-spacer {
+                min-height: 320px;
+            }
+
+            .chat-console {
+                max-width: 100%;
+            }
+
+            .bm-dock {
+                bottom: 16px;
+                right: 16px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Fixed Three.js WebGL Canvas -->
+    <canvas id="webgl-canvas"></canvas>
+    <div id="pointer-catch"></div>
+
+    <div class="content-layer">
+
+        <!-- Nav -->
+        <nav class="nav-bar">
+            <a href="index.html" class="nav-brand">
+                <span class="brand-badge">🤖</span>
+                <span>Buddy Bot <span style="font-size:0.75rem;color:var(--accent);font-weight:600;">#119</span></span>
+            </a>
+            <div class="nav-links">
+                <a href="#hero">Overview</a>
+                <a href="#what-buddy-does">Capabilities</a>
+                <a href="#say-hello">Say Hello</a>
+                <a href="index.html" style="color:var(--accent);">Portfolio ↗</a>
+            </div>
+            <a href="#say-hello" class="nav-cta">Connect with May</a>
+        </nav>
+
+        <!-- Section 1: Chat-Style Hero -->
+        <section id="hero">
+            <div class="hero-content">
+                <div class="hero-pill">
+                    <span class="pulse-dot"></span>
+                    <span>BRANDMOTION 3D COLLECTION · CODE-ONLY MASCOT</span>
+                </div>
+                <h1 class="hero-title">
+                    Glad you stopped by.<br>
+                    So, <span class="accent-text">what are we building?</span>
+                </h1>
+                <p class="hero-desc">
+                    Meet <strong>Buddy Bot</strong> — a glossy, code-only 3D robot mascot crafted from rounded primitives in Three.js r169. It watches your cursor, blinks, expresses dynamic canvas emotions, and reacts live with jumps, nods, waves, and spins!
+                </p>
+
+                <!-- Interactive Chat Console -->
+                <div class="chat-console">
+                    <div class="chat-header">
+                        <div class="chat-bot-status">
+                            <span class="chat-bot-avatar">✦</span>
+                            <span>Buddy Bot &amp; May Assistant</span>
+                        </div>
+                        <span class="chat-badge" id="botReactionState">STATE: IDLE</span>
+                    </div>
+
+                    <div class="chat-feed">
+                        <div class="buddy-speech-bubble" id="buddyBubble">
+                            <span id="buddyText">Hey! I'm Buddy Bot. Tap a reply below or ask me anything to watch me react!</span>
+                            <span class="typing-cursor" id="typingCursor"></span>
+                        </div>
+                    </div>
+
+                    <div class="reply-chips-label">Pick a quick reply:</div>
+                    <div class="reply-chips-grid">
+                        <button class="reply-chip" data-action="wave" data-reply="Hi Buddy! What can you do?">
+                            👋 What can you do?
+                        </button>
+                        <button class="reply-chip" data-action="nod" data-reply="Who created you?">
+                            ⚡ Who created you?
+                        </button>
+                        <button class="reply-chip" data-action="jump" data-reply="Show me a jump!">
+                            🚀 Show me a jump!
+                        </button>
+                        <button class="reply-chip" data-action="spin" data-reply="Can you do a spin?">
+                            ✨ Can you spin?
+                        </button>
+                    </div>
+
+                    <!-- Typed Message Form -->
+                    <form class="chat-input-form" id="chatForm">
+                        <input type="text" class="chat-input" id="chatInput" placeholder="Type a message (e.g., jump, dance, who are you?)..." autocomplete="off">
+                        <button type="submit" class="chat-send-btn">
+                            <span>Send</span> ➔
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Spacer where the 3D mascot stands in desktop view -->
+            <div class="hero-3d-spacer" aria-hidden="true"></div>
+        </section>
+
+        <!-- Section 2: What Buddy Does All Day -->
+        <section id="what-buddy-does">
+            <div class="section-header">
+                <div class="hero-pill">
+                    <span class="pulse-dot"></span>
+                    <span>ARCHITECTURE &amp; INTERACTION</span>
+                </div>
+                <h2 class="section-title">What Buddy does all day</h2>
+                <p class="hero-desc">
+                    Buddy Bot bridges high-performance WebGL graphics with dynamic conversational UX. Built without any 3D asset downloads, heavy textures, or bloated dependencies.
+                </p>
+            </div>
+
+            <div class="cards-grid">
+                <div class="feature-card">
+                    <div class="card-icon">🎭</div>
+                    <h3 class="card-title">Live Canvas Face Screen</h3>
+                    <p class="card-desc">
+                        Every eye movement, blink, smile, and wink is painted in real time onto an internal HTML canvas texture. Crisp at any retina scale with zero texture lag.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="card-icon">⚡</div>
+                    <h3 class="card-title">Reaction State Machine</h3>
+                    <p class="card-desc">
+                        Buddy transitions between realistic kinetic physics: squash-and-stretch jumps, affirmative nods, friendly waving hands, and 360° pirouette spins.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="card-icon">👁️</div>
+                    <h3 class="card-title">Cursor Gaze Tracking</h3>
+                    <p class="card-desc">
+                        Smooth damped interpolation keeps Buddy's head and digital pupils focused on your cursor position across the entire viewport.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="card-icon">🎨</div>
+                    <h3 class="card-title">Live Color Themes</h3>
+                    <p class="card-desc">
+                        Four calibrated palettes (Crimson, Cobalt, Lime, Grape) harmonize the WebGL materials, ear-glow rings, and page typography in real time.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Stats Strip -->
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-num">0 KB</div>
+                    <div class="stat-label">External 3D Models</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-num">60 FPS</div>
+                    <div class="stat-label">Hardware Accelerated</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-num">4 Modes</div>
+                    <div class="stat-label">Calibrated Palettes</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-num">100%</div>
+                    <div class="stat-label">Procedural Rounded Geometry</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Say Hello -->
+        <section id="say-hello">
+            <div class="cta-box">
+                <div class="hero-pill">
+                    <span class="pulse-dot"></span>
+                    <span>READY FOR YOUR APPLICATION</span>
+                </div>
+                <h2 class="section-title">Say hello to the future of mascot UX</h2>
+                <p class="hero-desc" style="margin: 0 auto 1.5rem; max-width: 580px;">
+                    Whether integrated as an AI assistant for Alumni AI or a brand ambassador for creative studios, Buddy Bot brings websites to life.
+                </p>
+                <div class="cta-buttons">
+                    <a href="index.html#contact" class="btn-main">Get in Touch with Sudarshan</a>
+                    <a href="index.html" class="btn-ghost">View Full Portfolio ↗</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <div>
+                <span class="footer-brand">Team Alum · BrandMotion 3D</span> &nbsp;|&nbsp;
+                Sudarshan &amp; Soham, Founders of Team Alum
+            </div>
+            <div>
+                Built with Three.js r169 · Pune, Maharashtra, India
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- 4 Preset Color Swatch Pill (BrandMotion Dock) -->
+    <div class="bm-dock" id="presetDock" aria-label="Theme Presets">
+        <span class="bm-dock-label">Theme</span>
+        <button class="swatch-btn crimson" data-preset="0" title="Crimson Preset"></button>
+        <button class="swatch-btn cobalt active" data-preset="1" title="Cobalt Preset"></button>
+        <button class="swatch-btn lime" data-preset="2" title="Lime Preset"></button>
+        <button class="swatch-btn grape" data-preset="3" title="Grape Preset"></button>
+    </div>
+
+    <!-- MAIN 3D SCRIPT -->
+    <script type="module">
+        import * as THREE from 'three';
+        import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
+
+        /* -------------------------------------------------------------
+           CONFIG & PRESETS
+        ------------------------------------------------------------- */
+        const CONFIG = {
+            dprMax: 2,
+            faceWidth: 512,
+            faceHeight: 384,
+            baseHoverY: 0,
+            hoverSpeed: 2.2,
+            hoverAmp: 0.18,
+            lookDamping: 0.08,
+            cameraFov: 38,
+            reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches
+        };
+
+        const PRESETS = [
+            {
+                name: 'Crimson',
+                css: {
+                    '--bg': '#140a10',
+                    '--text': '#fff1f2',
+                    '--text-muted': '#fda4af',
+                    '--accent': '#ff3366',
+                    '--accent-glow': 'rgba(255, 51, 102, 0.4)',
+                    '--accent-gradient': 'linear-gradient(135deg, #ff3366, #e11d48)'
+                },
+                robot: {
+                    bodyColor: 0xfdf2f4,
+                    accentColor: 0xff3366,
+                    glowColor: 0xf43f5e,
+                    eyeColor: '#ff3366',
+                    visorColor: 0x180c14
+                }
+            },
+            {
+                name: 'Cobalt',
+                css: {
+                    '--bg': '#090d16',
+                    '--text': '#f8fafc',
+                    '--text-muted': '#94a3b8',
+                    '--accent': '#38bdf8',
+                    '--accent-glow': 'rgba(56, 189, 248, 0.4)',
+                    '--accent-gradient': 'linear-gradient(135deg, #38bdf8, #2563eb)'
+                },
+                robot: {
+                    bodyColor: 0xf8fafc,
+                    accentColor: 0x38bdf8,
+                    glowColor: 0x2563eb,
+                    eyeColor: '#38bdf8',
+                    visorColor: 0x0c1322
+                }
+            },
+            {
+                name: 'Lime',
+                css: {
+                    '--bg': '#08140b',
+                    '--text': '#f7fee7',
+                    '--text-muted': '#bef264',
+                    '--accent': '#84cc16',
+                    '--accent-glow': 'rgba(132, 204, 22, 0.4)',
+                    '--accent-gradient': 'linear-gradient(135deg, #84cc16, #10b981)'
+                },
+                robot: {
+                    bodyColor: 0xfafdf5,
+                    accentColor: 0x84cc16,
+                    glowColor: 0x10b981,
+                    eyeColor: '#a3e635',
+                    visorColor: 0x0c1a10
+                }
+            },
+            {
+                name: 'Grape',
+                css: {
+                    '--bg': '#110a1c',
+                    '--text': '#faf5ff',
+                    '--text-muted': '#d8b4fe',
+                    '--accent': '#a855f7',
+                    '--accent-glow': 'rgba(168, 85, 247, 0.4)',
+                    '--accent-gradient': 'linear-gradient(135deg, #c084fc, #7e22ce)'
+                },
+                robot: {
+                    bodyColor: 0xfcfaff,
+                    accentColor: 0xc084fc,
+                    glowColor: 0x9333ea,
+                    eyeColor: '#d8b4fe',
+                    visorColor: 0x180f28
+                }
+            }
+        ];
+
+        /* -------------------------------------------------------------
+           URL PARAMETERS: ?embed, ?preset=N, ?tour
+        ------------------------------------------------------------- */
+        const urlParams = new URLSearchParams(window.location.search);
+        let activePresetIndex = 1; // Default: Cobalt
+
+        if (urlParams.has('preset')) {
+            const p = parseInt(urlParams.get('preset'), 10);
+            if (!isNaN(p) && p >= 0 && p < PRESETS.length) {
+                activePresetIndex = p;
+            }
+        }
+
+        if (urlParams.has('embed')) {
+            const dock = document.getElementById('presetDock');
+            if (dock) dock.style.display = 'none';
+        }
+
+        /* -------------------------------------------------------------
+           DYNAMIC CANVAS FACE SCREEN
+        ------------------------------------------------------------- */
+        const faceCanvas = document.createElement('canvas');
+        faceCanvas.width = CONFIG.faceWidth;
+        faceCanvas.height = CONFIG.faceHeight;
+        const faceCtx = faceCanvas.getContext('2d');
+        const faceTexture = new THREE.CanvasTexture(faceCanvas);
+        faceTexture.generateMipmaps = true;
+
+        const faceState = {
+            expression: 'idle', // 'idle', 'happy', 'wink', 'surprised', 'thinking', 'sparkle'
+            blinkProgress: 0,   // 0 = open, 1 = fully closed
+            lookX: 0,
+            lookY: 0,
+            mouthOpen: 0
+        };
+
+        function drawFace() {
+            const w = CONFIG.faceWidth;
+            const h = CONFIG.faceHeight;
+            const curPreset = PRESETS[activePresetIndex];
+            const eyeColor = curPreset.robot.eyeColor;
+
+            // Clear screen to deep glossy dark background
+            faceCtx.fillStyle = '#060a12';
+            faceCtx.fillRect(0, 0, w, h);
+
+            // Subtle scanline pattern
+            faceCtx.fillStyle = 'rgba(255, 255, 255, 0.025)';
+            for (let y = 0; y < h; y += 8) {
+                faceCtx.fillRect(0, y, w, 2);
+            }
+
+            const eyeSpacing = 110;
+            const eyeBaseY = h / 2 - 15;
+            const eyeLeftX = w / 2 - eyeSpacing + (faceState.lookX * 18);
+            const eyeRightX = w / 2 + eyeSpacing + (faceState.lookX * 18);
+            const eyeY = eyeBaseY + (faceState.lookY * 14);
+
+            // Draw Eyes based on Expression & Blink
+            faceCtx.save();
+            faceCtx.fillStyle = eyeColor;
+            faceCtx.shadowColor = eyeColor;
+            faceCtx.shadowBlur = 18;
+
+            const isBlinking = faceState.blinkProgress > 0.1;
+
+            if (isBlinking && faceState.expression !== 'wink') {
+                // Closed blinking line
+                faceCtx.lineWidth = 10;
+                faceCtx.strokeStyle = eyeColor;
+                faceCtx.lineCap = 'round';
+                [-eyeSpacing, eyeSpacing].forEach(offset => {
+                    faceCtx.beginPath();
+                    faceCtx.moveTo(w / 2 + offset - 28, eyeY);
+                    faceCtx.lineTo(w / 2 + offset + 28, eyeY);
+                    faceCtx.stroke();
+                });
+            } else {
+                switch (faceState.expression) {
+                    case 'happy':
+                    case 'jump':
+                        // Upturned joyful crescents ^^
+                        faceCtx.lineWidth = 14;
+                        faceCtx.strokeStyle = eyeColor;
+                        faceCtx.lineCap = 'round';
+                        [-eyeSpacing, eyeSpacing].forEach(offset => {
+                            faceCtx.beginPath();
+                            faceCtx.arc(w / 2 + offset, eyeY + 10, 32, Math.PI * 1.15, Math.PI * 1.85);
+                            faceCtx.stroke();
+                        });
+                        // Blush cheeks
+                        faceCtx.fillStyle = 'rgba(255, 100, 150, 0.45)';
+                        faceCtx.beginPath();
+                        faceCtx.arc(w / 2 - eyeSpacing - 25, eyeY + 50, 18, 0, Math.PI * 2);
+                        faceCtx.arc(w / 2 + eyeSpacing + 25, eyeY + 50, 18, 0, Math.PI * 2);
+                        faceCtx.fill();
+                        break;
+
+                    case 'wink':
+                        // Left eye winking curve, Right eye wide open
+                        faceCtx.lineWidth = 12;
+                        faceCtx.strokeStyle = eyeColor;
+                        faceCtx.lineCap = 'round';
+                        faceCtx.beginPath();
+                        faceCtx.arc(eyeLeftX, eyeY + 12, 32, Math.PI * 1.15, Math.PI * 1.85);
+                        faceCtx.stroke();
+
+                        // Right eye open rounded pill
+                        roundRect(faceCtx, eyeRightX - 30, eyeY - 34, 60, 68, 22);
+                        faceCtx.fill();
+                        break;
+
+                    case 'surprised':
+                        // Big round surprised eyes O O
+                        faceCtx.lineWidth = 12;
+                        faceCtx.strokeStyle = eyeColor;
+                        faceCtx.beginPath();
+                        faceCtx.arc(eyeLeftX, eyeY, 36, 0, Math.PI * 2);
+                        faceCtx.arc(eyeRightX, eyeY, 36, 0, Math.PI * 2);
+                        faceCtx.stroke();
+                        break;
+
+                    case 'thinking':
+                        // Left eye looking up, right eye squinting
+                        roundRect(faceCtx, eyeLeftX - 25, eyeY - 40, 50, 50, 18);
+                        faceCtx.fill();
+                        roundRect(faceCtx, eyeRightX - 28, eyeY - 20, 56, 38, 14);
+                        faceCtx.fill();
+                        break;
+
+                    case 'sparkle':
+                        // Star diamond eyes
+                        drawStar(faceCtx, eyeLeftX, eyeY, 4, 38, 16);
+                        drawStar(faceCtx, eyeRightX, eyeY, 4, 38, 16);
+                        break;
+
+                    case 'idle':
+                    default:
+                        // Classic rounded pill eyes
+                        roundRect(faceCtx, eyeLeftX - 28, eyeY - 36, 56, 72, 24);
+                        roundRect(faceCtx, eyeRightX - 28, eyeY - 36, 56, 72, 24);
+                        faceCtx.fill();
+                        break;
+                }
+            }
+
+            // Draw Dynamic Mouth
+            faceCtx.fillStyle = eyeColor;
+            faceCtx.strokeStyle = eyeColor;
+            faceCtx.lineWidth = 10;
+            faceCtx.lineCap = 'round';
+
+            const mouthY = h / 2 + 82;
+            const mouthW = 46 + (faceState.mouthOpen * 20);
+
+            if (faceState.expression === 'happy' || faceState.expression === 'jump' || faceState.expression === 'spin') {
+                // Open smiling mouth
+                faceCtx.beginPath();
+                faceCtx.arc(w / 2, mouthY - 10, mouthW, 0.15 * Math.PI, 0.85 * Math.PI);
+                faceCtx.stroke();
+            } else if (faceState.expression === 'surprised') {
+                // Round 'O' mouth
+                faceCtx.beginPath();
+                faceCtx.arc(w / 2, mouthY, 20, 0, Math.PI * 2);
+                faceCtx.stroke();
+            } else if (faceState.expression === 'wink') {
+                // Cheeky side smirk
+                faceCtx.beginPath();
+                faceCtx.moveTo(w / 2 - 20, mouthY + 5);
+                faceCtx.quadraticCurveTo(w / 2 + 10, mouthY + 12, w / 2 + 28, mouthY - 8);
+                faceCtx.stroke();
+            } else {
+                // Gentle idle mouth line
+                faceCtx.beginPath();
+                faceCtx.moveTo(w / 2 - mouthW / 2, mouthY);
+                faceCtx.quadraticCurveTo(w / 2, mouthY + 8, w / 2 + mouthW / 2, mouthY);
+                faceCtx.stroke();
+            }
+
+            faceCtx.restore();
+            faceTexture.needsUpdate = true;
+        }
+
+        function roundRect(ctx, x, y, width, height, radius) {
+            ctx.beginPath();
+            ctx.moveTo(x + radius, y);
+            ctx.lineTo(x + width - radius, y);
+            ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+            ctx.lineTo(x + width, y + height - radius);
+            ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+            ctx.lineTo(x + radius, y + height);
+            ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+            ctx.lineTo(x, y + radius);
+            ctx.quadraticCurveTo(x, y, x + radius, y);
+            ctx.closePath();
+        }
+
+        function drawStar(ctx, cx, cy, spikes, outerRadius, innerRadius) {
+            let rot = Math.PI / 2 * 3;
+            let x = cx;
+            let y = cy;
+            const step = Math.PI / spikes;
+            ctx.beginPath();
+            ctx.moveTo(cx, cy - outerRadius);
+            for (let i = 0; i < spikes; i++) {
+                x = cx + Math.cos(rot) * outerRadius;
+                y = cy + Math.sin(rot) * outerRadius;
+                ctx.lineTo(x, y);
+                rot += step;
+                x = cx + Math.cos(rot) * innerRadius;
+                y = cy + Math.sin(rot) * innerRadius;
+                ctx.lineTo(x, y);
+                rot += step;
+            }
+            ctx.lineTo(cx, cy - outerRadius);
+            ctx.closePath();
+            ctx.fill();
+        }
+
+        /* -------------------------------------------------------------
+           THREE.JS SCENE SETUP
+        ------------------------------------------------------------- */
+        const canvas = document.getElementById('webgl-canvas');
+        const renderer = new THREE.WebGLRenderer({
+            canvas,
+            antialias: true,
+            alpha: true,
+            powerPreference: 'high-performance'
+        });
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, CONFIG.dprMax));
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.toneMapping = THREE.ACESFilmicToneMapping;
+        renderer.toneMappingExposure = 1.25;
+
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(CONFIG.cameraFov, window.innerWidth / window.innerHeight, 0.1, 100);
+        camera.position.set(0, 0, 11);
+
+        // Lighting Rig
+        const ambientLight = new THREE.AmbientLight(0xffffff, 1.4);
+        scene.add(ambientLight);
+
+        const keyLight = new THREE.DirectionalLight(0xffffff, 2.2);
+        keyLight.position.set(5, 8, 8);
+        scene.add(keyLight);
+
+        const fillLight = new THREE.DirectionalLight(0x38bdf8, 1.5);
+        fillLight.position.set(-6, -2, 4);
+        scene.add(fillLight);
+
+        const rimLight = new THREE.DirectionalLight(0xffffff, 3.0);
+        rimLight.position.set(0, 6, -8);
+        scene.add(rimLight);
+
+        /* -------------------------------------------------------------
+           MATERIALS
+        ------------------------------------------------------------- */
+        const initialPreset = PRESETS[activePresetIndex];
+
+        const bodyMaterial = new THREE.MeshPhysicalMaterial({
+            color: initialPreset.robot.bodyColor,
+            roughness: 0.14,
+            metalness: 0.08,
+            clearcoat: 0.95,
+            clearcoatRoughness: 0.1
+        });
+
+        const accentMaterial = new THREE.MeshStandardMaterial({
+            color: initialPreset.robot.accentColor,
+            roughness: 0.25,
+            metalness: 0.6,
+            emissive: initialPreset.robot.glowColor,
+            emissiveIntensity: 0.4
+        });
+
+        const glowRingMaterial = new THREE.MeshBasicMaterial({
+            color: initialPreset.robot.accentColor
+        });
+
+        const visorMaterial = new THREE.MeshStandardMaterial({
+            color: 0x050810,
+            roughness: 0.15,
+            metalness: 0.85
+        });
+
+        const faceScreenMaterial = new THREE.MeshBasicMaterial({
+            map: faceTexture,
+            transparent: false
+        });
+
+        /* -------------------------------------------------------------
+           PROCEDURAL 3D MASCOT MESH (ROUNDED PRIMITIVES)
+        ------------------------------------------------------------- */
+        const mascotRoot = new THREE.Group();
+        scene.add(mascotRoot);
+
+        // Position mascot comfortably in the right side of hero for desktop
+        const baseMascotPos = new THREE.Vector3(2.4, 0.2, 0);
+        mascotRoot.position.copy(baseMascotPos);
+
+        // --- Head Group ---
+        const headGroup = new THREE.Group();
+        headGroup.position.set(0, 1.35, 0);
+        mascotRoot.add(headGroup);
+
+        // Head Helmet: RoundedBoxGeometry (width, height, depth, segments, radius)
+        const headGeo = new RoundedBoxGeometry(2.3, 1.9, 1.8, 8, 0.45);
+        const headMesh = new THREE.Mesh(headGeo, bodyMaterial);
+        headGroup.add(headMesh);
+
+        // Visor Screen Frame (Recessed dark bezel)
+        const visorGeo = new RoundedBoxGeometry(1.86, 1.4, 0.16, 6, 0.26);
+        const visorMesh = new THREE.Mesh(visorGeo, visorMaterial);
+        visorMesh.position.set(0, 0, 0.85);
+        headGroup.add(visorMesh);
+
+        // Face Screen (Dynamic Canvas Plane)
+        const faceScreenGeo = new THREE.PlaneGeometry(1.72, 1.26);
+        const faceScreenMesh = new THREE.Mesh(faceScreenGeo, faceScreenMaterial);
+        faceScreenMesh.position.set(0, 0, 0.94);
+        headGroup.add(faceScreenMesh);
+
+        // Antenna Stem & Pulsing Core
+        const antennaStemGeo = new THREE.CylinderGeometry(0.06, 0.08, 0.45, 16);
+        const antennaStem = new THREE.Mesh(antennaStemGeo, bodyMaterial);
+        antennaStem.position.set(0, 1.15, 0);
+        headGroup.add(antennaStem);
+
+        const antennaBallGeo = new THREE.SphereGeometry(0.18, 24, 24);
+        const antennaBall = new THREE.Mesh(antennaBallGeo, accentMaterial);
+        antennaBall.position.set(0, 1.4, 0);
+        headGroup.add(antennaBall);
+
+        // Ear Discs & Glow Rings
+        [-1.16, 1.16].forEach(sideX => {
+            const earGeo = new THREE.CylinderGeometry(0.42, 0.42, 0.32, 32);
+            earGeo.rotateZ(Math.PI / 2);
+            const ear = new THREE.Mesh(earGeo, bodyMaterial);
+            ear.position.set(sideX, 0, 0);
+            headGroup.add(ear);
+
+            const ringGeo = new THREE.TorusGeometry(0.28, 0.05, 16, 32);
+            ringGeo.rotateY(Math.PI / 2);
+            const ring = new THREE.Mesh(ringGeo, glowRingMaterial);
+            ring.position.set(sideX + (sideX > 0 ? 0.14 : -0.14), 0, 0);
+            headGroup.add(ring);
+        });
+
+        // --- Torso / Body ---
+        const bodyGroup = new THREE.Group();
+        bodyGroup.position.set(0, -0.45, 0);
+        mascotRoot.add(bodyGroup);
+
+        const torsoGeo = new RoundedBoxGeometry(1.9, 1.9, 1.5, 8, 0.4);
+        const torsoMesh = new THREE.Mesh(torsoGeo, bodyMaterial);
+        bodyGroup.add(torsoMesh);
+
+        // Chest Core Light (Glow indicator)
+        const chestCoreGeo = new THREE.CylinderGeometry(0.3, 0.3, 0.1, 32);
+        chestCoreGeo.rotateX(Math.PI / 2);
+        const chestCore = new THREE.Mesh(chestCoreGeo, accentMaterial);
+        chestCore.position.set(0, 0.25, 0.74);
+        bodyGroup.add(chestCore);
+
+        // Hover Thruster Base Pod
+        const thrusterGeo = new THREE.CylinderGeometry(0.65, 0.3, 0.45, 32);
+        const thruster = new THREE.Mesh(thrusterGeo, bodyMaterial);
+        thruster.position.set(0, -1.05, 0);
+        bodyGroup.add(thruster);
+
+        const thrusterRingGeo = new THREE.TorusGeometry(0.42, 0.06, 16, 32);
+        thrusterRingGeo.rotateX(Math.PI / 2);
+        const thrusterRing = new THREE.Mesh(thrusterRingGeo, glowRingMaterial);
+        thrusterRing.position.set(0, -1.2, 0);
+        bodyGroup.add(thrusterRing);
+
+        // --- Arms & Hands ---
+        // Right Arm (Interactive waving/cheering arm)
+        const rightShoulder = new THREE.Group();
+        rightShoulder.position.set(1.22, 0.45, 0);
+        bodyGroup.add(rightShoulder);
+
+        const armGeo = new RoundedBoxGeometry(0.34, 0.95, 0.34, 6, 0.12);
+        const rightArmMesh = new THREE.Mesh(armGeo, bodyMaterial);
+        rightArmMesh.position.set(0.18, -0.4, 0);
+        rightShoulder.add(rightArmMesh);
+
+        const handGeo = new THREE.SphereGeometry(0.24, 24, 24);
+        const rightHand = new THREE.Mesh(handGeo, accentMaterial);
+        rightHand.position.set(0.18, -0.92, 0);
+        rightShoulder.add(rightHand);
+
+        // Left Arm
+        const leftShoulder = new THREE.Group();
+        leftShoulder.position.set(-1.22, 0.45, 0);
+        bodyGroup.add(leftShoulder);
+
+        const leftArmMesh = new THREE.Mesh(armGeo, bodyMaterial);
+        leftArmMesh.position.set(-0.18, -0.4, 0);
+        leftShoulder.add(leftArmMesh);
+
+        const leftHand = new THREE.Mesh(handGeo, accentMaterial);
+        leftHand.position.set(-0.18, -0.92, 0);
+        leftShoulder.add(leftHand);
+
+        // Soft Ground Contact Shadow
+        const shadowGeo = new THREE.PlaneGeometry(3.6, 2.4);
+        const shadowMat = new THREE.MeshBasicMaterial({
+            color: 0x000000,
+            transparent: true,
+            opacity: 0.35,
+            depthWrite: false
+        });
+        const groundShadow = new THREE.Mesh(shadowGeo, shadowMat);
+        groundShadow.rotation.x = -Math.PI / 2;
+        groundShadow.position.set(0, -2.4, 0);
+        mascotRoot.add(groundShadow);
+
+        /* -------------------------------------------------------------
+           REACTION STATE MACHINE & KINETICS
+        ------------------------------------------------------------- */
+        let state = 'idle'; // 'idle', 'wave', 'nod', 'jump', 'spin', 'think'
+        let stateTimer = 0;
+        let jumpProgress = 0;
+        let spinProgress = 0;
+
+        const reactionBadge = document.getElementById('botReactionState');
+
+        function triggerReaction(actionName) {
+            state = actionName;
+            stateTimer = 0;
+            if (reactionBadge) {
+                reactionBadge.textContent = 'STATE: ' + actionName.toUpperCase();
+                reactionBadge.style.color = 'var(--accent)';
+            }
+
+            switch (actionName) {
+                case 'wave':
+                    faceState.expression = 'wink';
+                    break;
+                case 'nod':
+                    faceState.expression = 'happy';
+                    break;
+                case 'jump':
+                    faceState.expression = 'sparkle';
+                    jumpProgress = 0;
+                    break;
+                case 'spin':
+                    faceState.expression = 'happy';
+                    spinProgress = 0;
+                    break;
+                case 'think':
+                    faceState.expression = 'thinking';
+                    break;
+                default:
+                    faceState.expression = 'idle';
+            }
+            drawFace();
+        }
+
+        /* -------------------------------------------------------------
+           CURSOR & POINTER TRACKING
+        ------------------------------------------------------------- */
+        const mouse = { x: 0, y: 0, targetX: 0, targetY: 0 };
+
+        window.addEventListener('pointermove', (e) => {
+            mouse.targetX = (e.clientX / window.innerWidth) * 2 - 1;
+            mouse.targetY = -(e.clientY / window.innerHeight) * 2 + 1;
+        });
+
+        /* -------------------------------------------------------------
+           SCROLL-LINKED STORYTELLING (SMOOTH RE-FRAMING)
+        ------------------------------------------------------------- */
+        let targetScroll = 0;
+        let smoothedScroll = 0;
+
+        window.addEventListener('scroll', () => {
+            const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+            targetScroll = maxScroll > 0 ? window.scrollY / maxScroll : 0;
+        }, { passive: true });
+
+        /* -------------------------------------------------------------
+           TYPEWRITER CHAT ENGINE
+        ------------------------------------------------------------- */
+        const buddyText = document.getElementById('buddyText');
+        const typingCursor = document.getElementById('typingCursor');
+        let typeInterval = null;
+
+        function typeBuddyMessage(message, action) {
+            triggerReaction(action || 'nod');
+            clearInterval(typeInterval);
+            if (buddyText) buddyText.textContent = '';
+            if (typingCursor) typingCursor.style.display = 'inline-block';
+
+            let charIdx = 0;
+            typeInterval = setInterval(() => {
+                if (buddyText) buddyText.textContent += message.charAt(charIdx++);
+                faceState.mouthOpen = (charIdx % 2 === 0) ? 1 : 0;
+                drawFace();
+
+                if (charIdx >= message.length) {
+                    clearInterval(typeInterval);
+                    faceState.mouthOpen = 0;
+                    drawFace();
+                    setTimeout(() => {
+                        if (state !== 'idle') {
+                            state = 'idle';
+                            faceState.expression = 'idle';
+                            if (reactionBadge) reactionBadge.textContent = 'STATE: IDLE';
+                            drawFace();
+                        }
+                    }, 2400);
+                }
+            }, 26);
+        }
+
+        // Quick Reply Buttons
+        document.querySelectorAll('.reply-chip').forEach(chip => {
+            chip.addEventListener('click', () => {
+                const action = chip.dataset.action;
+                const reply = chip.dataset.reply;
+
+                if (action === 'wave') {
+                    typeBuddyMessage("Hello! I can jump, nod, wave, spin, watch your cursor, and switch live themes!", 'wave');
+                } else if (action === 'nod') {
+                    typeBuddyMessage("I was built with Three.js r169 by Sudarshan & Soham, Founders of Team Alum!", 'nod');
+                } else if (action === 'jump') {
+                    typeBuddyMessage("Boom! High jump with live squash and stretch!", 'jump');
+                } else if (action === 'spin') {
+                    typeBuddyMessage("Wheee! Full 360-degree pirouette rotation!", 'spin');
+                }
+            });
+        });
+
+        // Chat Form
+        const chatForm = document.getElementById('chatForm');
+        const chatInput = document.getElementById('chatInput');
+
+        if (chatForm && chatInput) {
+            chatForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const q = chatInput.value.trim().toLowerCase();
+                if (!q) return;
+                chatInput.value = '';
+
+                if (q.includes('jump') || q.includes('hop') || q.includes('fly')) {
+                    typeBuddyMessage("Up into the air! Watch this jump!", 'jump');
+                } else if (q.includes('spin') || q.includes('dance') || q.includes('turn')) {
+                    typeBuddyMessage("Spinning around in real-time WebGL!", 'spin');
+                } else if (q.includes('wave') || q.includes('hi') || q.includes('hello') || q.includes('hey')) {
+                    typeBuddyMessage("Hey there! Welcome to Team Alum's 3D Mascot Studio!", 'wave');
+                } else if (q.includes('who') || q.includes('creator') || q.includes('alum')) {
+                    typeBuddyMessage("Sudarshan Sunil Hadmode and Soham are Founders of Team Alum in Pune, India!", 'nod');
+                } else if (q.includes('alumni') || q.includes('may')) {
+                    typeBuddyMessage("May is Sudarshan's Alumni AI voice assistant with an integrated Chrome browser!", 'think');
+                } else {
+                    typeBuddyMessage(`"${q}" received! Buddy Bot is synced with your portfolio runtime.`, 'nod');
+                }
+            });
+        }
+
+        /* -------------------------------------------------------------
+           THEME PRESET SWITCHER
+        ------------------------------------------------------------- */
+        function applyPreset(index) {
+            activePresetIndex = index;
+            const p = PRESETS[index];
+
+            // Apply CSS variables to root
+            Object.entries(p.css).forEach(([prop, val]) => {
+                document.documentElement.style.setProperty(prop, val);
+            });
+
+            // Update 3D Materials
+            bodyMaterial.color.setHex(p.robot.bodyColor);
+            accentMaterial.color.setHex(p.robot.accentColor);
+            accentMaterial.emissive.setHex(p.robot.glowColor);
+            glowRingMaterial.color.setHex(p.robot.accentColor);
+            fillLight.color.setHex(p.robot.accentColor);
+
+            // Update Swatch UI
+            document.querySelectorAll('.swatch-btn').forEach((btn, i) => {
+                btn.classList.toggle('active', i === index);
+            });
+
+            // Redraw face canvas with new eye color
+            drawFace();
+        }
+
+        document.querySelectorAll('.swatch-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                applyPreset(parseInt(btn.dataset.preset, 10));
+            });
+        });
+
+        // Initialize preset
+        applyPreset(activePresetIndex);
+
+        /* -------------------------------------------------------------
+           AUTO TOUR (?tour)
+        ------------------------------------------------------------- */
+        if (urlParams.has('tour')) {
+            let tourDir = 1;
+            setInterval(() => {
+                const maxS = document.documentElement.scrollHeight - window.innerHeight;
+                if (window.scrollY >= maxS - 10) tourDir = -1;
+                if (window.scrollY <= 10) tourDir = 1;
+                window.scrollBy({ top: 3 * tourDir, behavior: 'auto' });
+            }, 30);
+        }
+
+        /* -------------------------------------------------------------
+           RENDER & ANIMATION LOOP (60 FPS)
+        ------------------------------------------------------------- */
+        const clock = new THREE.Clock();
+        let blinkCooldown = 3.5;
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            const dt = clock.getDelta();
+            const elapsed = clock.getElapsedTime();
+
+            // Smooth pointer
+            mouse.x += (mouse.targetX - mouse.x) * CONFIG.lookDamping;
+            mouse.y += (mouse.targetY - mouse.y) * CONFIG.lookDamping;
+
+            // Smooth scroll progress
+            smoothedScroll += (targetScroll - smoothedScroll) * 0.06;
+
+            // Dynamic Eye Blink Timer
+            blinkCooldown -= dt;
+            if (blinkCooldown <= 0) {
+                faceState.blinkProgress += dt * 7;
+                if (faceState.blinkProgress >= 1) {
+                    faceState.blinkProgress = 0;
+                    blinkCooldown = 2.5 + Math.random() * 4.0;
+                }
+                drawFace();
+            }
+
+            // Screen/Head look follows pointer
+            faceState.lookX = mouse.x;
+            faceState.lookY = mouse.y;
+
+            // Responsive Mascot Base Positioning
+            const isPortrait = window.innerWidth < 900;
+            const heroTargetX = isPortrait ? 0 : 2.4;
+            const heroTargetY = isPortrait ? -0.8 : 0.2;
+
+            // Scroll-Driven Scene Storytelling
+            if (smoothedScroll < 0.28) {
+                // Section 1: Hero (Right side / Center, facing forward)
+                mascotRoot.position.x = THREE.MathUtils.lerp(heroTargetX, -2.2, smoothedScroll / 0.28);
+                mascotRoot.position.y = THREE.MathUtils.lerp(heroTargetY, 0.4, smoothedScroll / 0.28);
+                mascotRoot.rotation.y = THREE.MathUtils.lerp(0, 0.35, smoothedScroll / 0.28);
+            } else if (smoothedScroll < 0.70) {
+                // Section 2: What Buddy Does All Day (Left side, gesturing to features)
+                const s2Progress = (smoothedScroll - 0.28) / 0.42;
+                mascotRoot.position.x = THREE.MathUtils.lerp(-2.2, 0, s2Progress);
+                mascotRoot.position.y = THREE.MathUtils.lerp(0.4, -0.2, s2Progress);
+                mascotRoot.rotation.y = THREE.MathUtils.lerp(0.35, -0.2, s2Progress);
+            } else {
+                // Section 3: Say Hello (Right of CTA, facing camera)
+                const s3Progress = (smoothedScroll - 0.70) / 0.30;
+                mascotRoot.position.x = THREE.MathUtils.lerp(0, 2.2, s3Progress);
+                mascotRoot.position.y = THREE.MathUtils.lerp(-0.2, 0.1, s3Progress);
+                mascotRoot.rotation.y = THREE.MathUtils.lerp(-0.2, 0, s3Progress);
+            }
+
+            // Gentle Idle Hover Bobbing
+            if (!CONFIG.reducedMotion) {
+                mascotRoot.position.y += Math.sin(elapsed * CONFIG.hoverSpeed) * CONFIG.hoverAmp * dt;
+                groundShadow.scale.setScalar(1 + Math.sin(elapsed * CONFIG.hoverSpeed) * 0.08);
+            }
+
+            // Head and Body Tracking Cursor
+            headGroup.rotation.y = mouse.x * 0.45;
+            headGroup.rotation.x = -mouse.y * 0.28;
+            torsoMesh.rotation.y = mouse.x * 0.18;
+
+            // Antenna Pulse
+            antennaBall.scale.setScalar(1 + Math.sin(elapsed * 4.0) * 0.08);
+
+            // --- Reaction State Machine Execution ---
+            stateTimer += dt;
+
+            if (state === 'wave') {
+                // Raise right arm and wave
+                rightShoulder.rotation.z = -2.1;
+                rightShoulder.rotation.x = Math.sin(stateTimer * 9.0) * 0.45;
+                leftShoulder.rotation.z = 0.2;
+                headGroup.rotation.z = -0.15;
+                if (stateTimer > 2.8) {
+                    state = 'idle';
+                    faceState.expression = 'idle';
+                    if (reactionBadge) reactionBadge.textContent = 'STATE: IDLE';
+                    drawFace();
+                }
+            } else if (state === 'nod') {
+                // Nod head up and down
+                headGroup.rotation.x = -mouse.y * 0.28 + Math.sin(stateTimer * 8.0) * 0.24;
+                rightShoulder.rotation.z = 0.2;
+                leftShoulder.rotation.z = -0.2;
+                if (stateTimer > 2.2) {
+                    state = 'idle';
+                    faceState.expression = 'idle';
+                    if (reactionBadge) reactionBadge.textContent = 'STATE: IDLE';
+                    drawFace();
+                }
+            } else if (state === 'jump') {
+                // Squash and stretch physics jump
+                jumpProgress += dt * 1.8;
+                if (jumpProgress < 0.25) {
+                    // Squash anticipation
+                    mascotRoot.scale.set(1.15, 0.85, 1.15);
+                    mascotRoot.position.y -= 0.15;
+                } else if (jumpProgress < 1.0) {
+                    // Launch stretch
+                    const jumpT = (jumpProgress - 0.25) / 0.75;
+                    const jumpY = Math.sin(jumpT * Math.PI) * 1.8;
+                    mascotRoot.position.y += jumpY * dt * 2.5;
+                    mascotRoot.scale.set(0.9, 1.15, 0.9);
+                    rightShoulder.rotation.z = -2.4;
+                    leftShoulder.rotation.z = 2.4;
+                } else {
+                    // Landing recovery
+                    mascotRoot.scale.set(1, 1, 1);
+                    state = 'idle';
+                    faceState.expression = 'idle';
+                    if (reactionBadge) reactionBadge.textContent = 'STATE: IDLE';
+                    drawFace();
+                }
+            } else if (state === 'spin') {
+                // 360 degree spin
+                spinProgress += dt * 3.5;
+                mascotRoot.rotation.y += Math.PI * 2 * dt * 1.5;
+                rightShoulder.rotation.z = -1.6;
+                leftShoulder.rotation.z = 1.6;
+                if (spinProgress >= Math.PI * 2) {
+                    state = 'idle';
+                    faceState.expression = 'idle';
+                    if (reactionBadge) reactionBadge.textContent = 'STATE: IDLE';
+                    drawFace();
+                }
+            } else if (state === 'think') {
+                // Hand to chin / ear
+                rightShoulder.rotation.z = -1.9;
+                rightShoulder.rotation.y = 0.6;
+                headGroup.rotation.z = 0.18;
+                if (stateTimer > 2.5) {
+                    state = 'idle';
+                    faceState.expression = 'idle';
+                    if (reactionBadge) reactionBadge.textContent = 'STATE: IDLE';
+                    drawFace();
+                }
+            } else {
+                // Natural idle arms sway
+                rightShoulder.rotation.set(0, 0, Math.sin(elapsed * 1.8) * 0.08);
+                leftShoulder.rotation.set(0, 0, -Math.sin(elapsed * 1.8) * 0.08);
+                headGroup.rotation.z = 0;
+            }
+
+            renderer.render(scene, camera);
+        }
+
+        // Window Resize Handling
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.fov = window.innerWidth < 900 ? 46 : CONFIG.cameraFov;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, CONFIG.dprMax));
+        });
+
+        // Initialize Face Canvas
+        drawFace();
+
+        // Start 60fps Loop
+        animate();
+    </script>
+</body>
+</html>
