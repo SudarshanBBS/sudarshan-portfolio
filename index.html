@@ -276,7 +276,7 @@
             font-size: 11px;
             font-weight: 700;
             letter-spacing: 2.5px;
-            color: #38bdf8;
+            color: #eedbc2;
             background: rgba(14, 165, 233, 0.08);
             border: 1px solid rgba(56, 189, 248, 0.28);
             padding: 5px 14px;
@@ -288,7 +288,7 @@
             width: 6px;
             height: 6px;
             border-radius: 50%;
-            background: #38bdf8;
+            background: #ff385c;
             box-shadow: 0 0 8px #38bdf8;
             animation: dotGlow 1.4s ease-in-out infinite alternate;
         }
@@ -375,16 +375,16 @@
             background: rgba(56, 189, 248, 0.7);
             transform-origin: 50% clamp(105px, 22vw, 135px);
         }
-        .rt-0   { transform: translateX(-50%) rotate(0deg); height: 10px; width: 2.5px; background: #38bdf8; }
+        .rt-0   { transform: translateX(-50%) rotate(0deg); height: 10px; width: 2.5px; background: #ff385c; }
         .rt-30  { transform: translateX(-50%) rotate(30deg); }
         .rt-60  { transform: translateX(-50%) rotate(60deg); }
-        .rt-90  { transform: translateX(-50%) rotate(90deg); height: 10px; width: 2.5px; background: #38bdf8; }
+        .rt-90  { transform: translateX(-50%) rotate(90deg); height: 10px; width: 2.5px; background: #ff385c; }
         .rt-120 { transform: translateX(-50%) rotate(120deg); }
         .rt-150 { transform: translateX(-50%) rotate(150deg); }
-        .rt-180 { transform: translateX(-50%) rotate(180deg); height: 10px; width: 2.5px; background: #38bdf8; }
+        .rt-180 { transform: translateX(-50%) rotate(180deg); height: 10px; width: 2.5px; background: #ff385c; }
         .rt-210 { transform: translateX(-50%) rotate(210deg); }
         .rt-240 { transform: translateX(-50%) rotate(240deg); }
-        .rt-270 { transform: translateX(-50%) rotate(270deg); height: 10px; width: 2.5px; background: #38bdf8; }
+        .rt-270 { transform: translateX(-50%) rotate(270deg); height: 10px; width: 2.5px; background: #ff385c; }
         .rt-300 { transform: translateX(-50%) rotate(300deg); }
         .rt-330 { transform: translateX(-50%) rotate(330deg); }
 
@@ -426,7 +426,7 @@
             height: 50%;
             border-radius: 50%;
             background: radial-gradient(circle, #082f49 0%, #03182e 72%, #010814 100%);
-            border: 2px solid #38bdf8;
+            border: 2px solid #ff385c;
             box-shadow: 0 0 28px rgba(56, 189, 248, 0.65), inset 0 0 20px rgba(56, 189, 248, 0.5);
             display: flex;
             align-items: center;
@@ -441,7 +441,7 @@
             width: 66%;
             height: 66%;
             border-radius: 50%;
-            background: radial-gradient(circle, #ffffff 15%, #38bdf8 65%, #0284c7 100%);
+            background: radial-gradient(circle, #fffaf0 15%, #ff385c 65%, #be123c 100%);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -495,7 +495,7 @@
         .reactor-step-label {
             font-family: 'Syne', sans-serif;
             font-size: 9px;
-            color: #38bdf8;
+            color: #eedbc2;
             background: rgba(56, 189, 248, 0.1);
             border: 1px solid rgba(56, 189, 248, 0.25);
             padding: 2px 7px;
@@ -517,7 +517,7 @@
             font-family: 'Syne', sans-serif;
             font-size: 13px;
             font-weight: 700;
-            color: #38bdf8;
+            color: #eedbc2;
             text-shadow: 0 0 10px rgba(56, 189, 248, 0.6);
         }
 
@@ -535,8 +535,8 @@
         .reactor-gauge-fill {
             height: 100%;
             border-radius: 99px;
-            background: linear-gradient(90deg, #0284c7 0%, #38bdf8 55%, #ffffff 100%);
-            box-shadow: 0 0 10px #38bdf8;
+            background: linear-gradient(90deg, #be123c 0%, #ff385c 55%, #fbf6ee 100%);
+            box-shadow: 0 0 12px #ff385c;
             transition: width 0.18s ease-out;
         }
 
@@ -556,7 +556,7 @@
             text-overflow: ellipsis;
         }
         .feed-prompt {
-            color: #38bdf8;
+            color: #eedbc2;
             font-weight: bold;
             margin-right: 4px;
         }
@@ -695,9 +695,9 @@
         }
 
         .section-title .grad {
-            background: linear-gradient(135deg, var(--text) 40%, var(--accent2));
+            background: linear-gradient(135deg, #fffbf2 25%, #ff385c 75%, #eedbc2 100%);
             -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent
+            -webkit-text-fill-color: transparent;
         }
 
         .section-divider {
@@ -721,8 +721,8 @@
             align-items: center;
             gap: 8px;
             padding: 6px 16px;
-            background: rgba(110, 231, 247, .08);
-            border: 1px solid rgba(110, 231, 247, .2);
+            background: rgba(225, 29, 72, 0.12);
+            border: 1px solid rgba(245, 232, 212, 0.22);
             border-radius: 99px;
             font-size: 12px;
             letter-spacing: 2px;
@@ -915,7 +915,7 @@
             font-weight: 800;
             color: rgba(255, 255, 255, .9);
             position: relative;
-            box-shadow: 0 40px 80px rgba(167, 139, 250, .2);
+            box-shadow: 0 40px 80px rgba(225, 29, 72, 0.3);
             animation: float 6s ease-in-out infinite
         }
 
@@ -1084,7 +1084,7 @@
 
         .cert-tab:hover,
         .cert-tab.active {
-            background: rgba(110, 231, 247, .1);
+            background: rgba(225, 29, 72, 0.15);
             border-color: var(--accent);
             color: var(--accent)
         }
@@ -1194,8 +1194,8 @@
 
         .cert-back-tag {
             padding: 4px 12px;
-            background: rgba(110, 231, 247, .1);
-            border: 1px solid rgba(110, 231, 247, .2);
+            background: rgba(225, 29, 72, 0.15);
+            border: 1px solid rgba(245, 232, 212, 0.22);
             border-radius: 99px;
             font-size: 11px;
             color: var(--accent)
@@ -1269,8 +1269,8 @@
 
         .cert-tag {
             padding: 5px 14px;
-            background: rgba(110, 231, 247, .08);
-            border: 1px solid rgba(110, 231, 247, .2);
+            background: rgba(225, 29, 72, 0.12);
+            border: 1px solid rgba(245, 232, 212, 0.22);
             border-radius: 99px;
             font-size: 12px;
             color: var(--accent)
@@ -1457,7 +1457,7 @@
             transform: translateY(-3px);
             border-color: var(--accent);
             color: var(--accent);
-            box-shadow: 0 10px 30px rgba(110, 231, 247, .15)
+            box-shadow: 0 10px 30px rgba(225, 29, 72, 0.25)
         }
 
         .footer-text {
@@ -1568,7 +1568,7 @@
             border: 3px solid var(--bg);
             border-radius: 50%;
             z-index: 1;
-            box-shadow: 0 0 0 4px rgba(110, 231, 247, .2)
+            box-shadow: 0 0 0 4px rgba(245, 232, 212, 0.22)
         }
 
         .timeline-item.visible .timeline-dot {
@@ -1602,7 +1602,7 @@
 
         .timeline-item:hover .timeline-content {
             border-color: var(--accent);
-            box-shadow: 0 10px 30px rgba(110, 231, 247, .1)
+            box-shadow: 0 10px 30px rgba(225, 29, 72, 0.15)
         }
 
         .timeline-year {
@@ -1641,8 +1641,8 @@
 
         .timeline-tag {
             padding: 3px 10px;
-            background: rgba(110, 231, 247, .1);
-            border: 1px solid rgba(110, 231, 247, .2);
+            background: rgba(225, 29, 72, 0.15);
+            border: 1px solid rgba(245, 232, 212, 0.22);
             border-radius: 99px;
             font-size: 11px;
             color: var(--accent)
@@ -1801,11 +1801,11 @@
 
         .robot.speaking .mouth {
             transform: translateY(2px) scaleY(1.35);
-            filter: drop-shadow(0 4px 8px rgba(110, 231, 247, .08));
+            filter: drop-shadow(0 4px 8px rgba(225, 29, 72, 0.12));
         }
 
         .robot.talk-glow {
-            box-shadow: 0 10px 30px rgba(110, 231, 247, .08);
+            box-shadow: 0 10px 30px rgba(225, 29, 72, 0.12);
             transform: translateY(-4px);
         }
 
@@ -1888,7 +1888,7 @@
                 display: none !important;
             }
             * {
-                -webkit-tap-highlight-color: rgba(110, 231, 247, 0.15);
+                -webkit-tap-highlight-color: rgba(225, 29, 72, 0.25);
             }
             button, a, .project-card, .contact-link {
                 touch-action: manipulation;
@@ -2064,7 +2064,7 @@
         }
 
         .hero-mascot-console:hover {
-            border-color: rgba(56, 189, 248, 0.3);
+            border-color: rgba(225, 29, 72, 0.45); box-shadow: 0 20px 45px rgba(0,0,0,0.5), 0 0 25px rgba(225, 29, 72, 0.2);
         }
 
         .mascot-console-header {
@@ -2162,7 +2162,7 @@
         }
 
         .action-chip:hover {
-            background: rgba(56, 189, 248, 0.15);
+            background: rgba(225, 29, 72, 0.18);
             border-color: var(--accent);
             color: var(--accent);
             transform: translateY(-2px);
@@ -3113,8 +3113,8 @@
 
                 if (progress >= 88 && welcomeMsg) {
                     welcomeMsg.textContent = 'MAY: "WELCOME, SUDARSHAN."';
-                    welcomeMsg.style.color = '#38bdf8';
-                    welcomeMsg.style.textShadow = '0 0 16px rgba(56, 189, 248, 0.75)';
+                    welcomeMsg.style.color = '#eedbc2';
+                    welcomeMsg.style.textShadow = '0 0 16px rgba(225, 29, 72, 0.8)';
                 }
             }
 
