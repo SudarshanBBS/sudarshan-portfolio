@@ -32,7 +32,7 @@
 
 ## 👨‍💻 About Me
 
-I am a 17-year-old **AI Engineer**, **Prompt Engineer**, and **Full-Stack Developer** based in Pune, India. As the **Startup & Founder** and Lead Architect of [**Team Alum**](https://team-alum.vercel.app) and creator of **Alumni AI** (an advanced AI with many modes and an integrated browser powered by Chrome), I engineer intelligent tools, next-generation AI platforms, and reactive digital experiences with zero bloat.
+I am a 17-year-old **Full-Stack Developer**, **Alumni AI Developer**, and **Prompt Engineer** based in Pune, India. As the **Startup & Founder** and Lead Architect of [**Team Alum**](https://team-alum.vercel.app) and creator of **Alumni AI** (an advanced AI with many modes and an integrated browser powered by Chrome), I engineer intelligent tools, next-generation AI platforms, and reactive digital experiences with zero bloat.
 
 > *"Seeking information and executing plans after thinking and researching is the quality of my success."*
 
@@ -47,7 +47,7 @@ I am a 17-year-old **AI Engineer**, **Prompt Engineer**, and **Full-Stack Develo
       <h3>🌐 <a href="https://team-alum.vercel.app">Team Alum</a></h3>
       <p><b>Startup &amp; Founder &amp; Lead Architect</b></p>
       <p>Official ecosystem delivering intelligent tools, study platforms, and AI applications for students. Engineered with pure modern web standards, Supabase, and verified RLS security.</p>
-      <sub><code>AI Engineering</code> • <code>Vanilla JS</code> • <code>Supabase</code> • <code>Vercel</code></sub><br /><br />
+      <sub><code>Intelligent Tools</code> • <code>Vanilla JS</code> • <code>Supabase</code> • <code>Vercel</code></sub><br /><br />
       <a href="https://team-alum.vercel.app"><b>Visit team-alum.vercel.app ↗</b></a>
     </td>
     <td width="50%">
