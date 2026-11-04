@@ -2062,9 +2062,49 @@
             color: var(--muted);
             line-height: 1.68;
             max-width: 580px;
-            margin-bottom: 26px;
+            margin-bottom: 20px;
             font-weight: 400;
             text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+        }
+
+        /* Verified Work & GitHub Credential Proof Tags */
+        .hero-proof-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 0 0 24px 0;
+            position: relative;
+            z-index: 10;
+        }
+
+        .proof-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            background: rgba(30, 9, 14, 0.72);
+            border: 1px solid rgba(245, 232, 212, 0.16);
+            border-radius: 999px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: #eedbc2;
+            letter-spacing: 0.02em;
+            text-decoration: none;
+            backdrop-filter: blur(8px);
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .proof-tag:hover {
+            border-color: var(--accent);
+            background: rgba(225, 29, 72, 0.2);
+            color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 14px rgba(225, 29, 72, 0.28);
+        }
+
+        .proof-tag .pt-icon {
+            color: var(--accent);
+            font-size: 0.85rem;
         }
 
         .hero-cta {
@@ -2218,6 +2258,9 @@
                 font-size: clamp(2.0rem, 6.2vw, 2.8rem);
             }
             .hero-role {
+                justify-content: center;
+            }
+            .hero-proof-tags {
                 justify-content: center;
             }
             .hero-desc {
@@ -2393,16 +2436,46 @@
                 <h1 class="hero-name">Sudarshan Sunil Hadmode</h1>
 
                 <p class="hero-role">
-                    <span class="role-tag">AI Engineer</span>
+                    <span class="role-tag">Startup &amp; Founder of <a href="https://team-alum.vercel.app" target="_blank" rel="noopener noreferrer" class="hero-link">Team Alum</a></span>
+                    <span class="role-sep">·</span>
+                    <span class="role-tag">Alumni AI Developer</span>
                     <span class="role-sep">·</span>
                     <span class="role-tag">Full-Stack Developer</span>
                     <span class="role-sep">·</span>
-                    <span class="role-tag">Startup &amp; Founder of <a href="https://team-alum.vercel.app" target="_blank" rel="noopener noreferrer" class="hero-link">Team Alum</a></span>
+                    <span class="role-tag">Prompt Engineer</span>
                 </p>
 
                 <p class="hero-desc">
                     Designing and engineering multi-mode AI systems, experimental developer platforms, and high-performance web products with autonomous reasoning, full-stack architecture, and clean user experience.
                 </p>
+
+                <!-- Legitimate & Verified GitHub Work Tags / Proof Badges -->
+                <div class="hero-proof-tags" aria-label="Verified GitHub Work & Credentials">
+                    <a href="https://github.com/sudarshandev-llm" target="_blank" rel="noopener noreferrer" class="proof-tag" title="Verified GitHub Profile">
+                        <span class="pt-icon">🐙</span>
+                        <span>GitHub: 24+ Public Repos</span>
+                    </a>
+                    <a href="https://team-alum.vercel.app" target="_blank" rel="noopener noreferrer" class="proof-tag" title="Team Alum Official Platform">
+                        <span class="pt-icon">🌐</span>
+                        <span>Startup &amp; Founder @ Team Alum</span>
+                    </a>
+                    <a href="https://alumni-ai-teamalum.vercel.app/" target="_blank" rel="noopener noreferrer" class="proof-tag" title="Alumni AI Flagship System">
+                        <span class="pt-icon">🤖</span>
+                        <span>Alumni AI (Multi-Mode AI)</span>
+                    </a>
+                    <a href="https://github.com/sudarshandev-llm/agent-forge-prototype" target="_blank" rel="noopener noreferrer" class="proof-tag" title="AgentForge Platform">
+                        <span class="pt-icon">⚡</span>
+                        <span>AgentForge (AI Agents)</span>
+                    </a>
+                    <a href="https://teamalum-bookstore.vercel.app" target="_blank" rel="noopener noreferrer" class="proof-tag" title="Prompt Engineering Blueprint">
+                        <span class="pt-icon">📚</span>
+                        <span>Prompt Engineer (Author)</span>
+                    </a>
+                    <a href="#achievements" class="proof-tag" title="Verified Certifications">
+                        <span class="pt-icon">📜</span>
+                        <span>Microsoft GenAI &amp; JP Morgan Simulation</span>
+                    </a>
+                </div>
 
                 <div class="hero-cta">
                     <a href="#projects" class="btn-primary">Explore Projects</a>
@@ -2456,6 +2529,8 @@
                     <div class="info-row"><span class="info-label">Role</span><span class="info-val">Alumni AI Developer</span></div>
                     <div class="info-row"><span class="info-label">Focus</span><span class="info-val">AI Products &amp;
                             Web Development</span></div>
+                    <div class="info-row"><span class="info-label">GitHub Proofs</span><span class="info-val"><a href="https://github.com/sudarshandev-llm" target="_blank" rel="noopener noreferrer" style="color:var(--accent);text-decoration:none;">24+ Public Repos (@sudarshandev-llm) ↗</a></span></div>
+                    <div class="info-row"><span class="info-label">Verified Badges</span><span class="info-val">Microsoft Gen AI &amp; Cloud · JP Morgan Simulation</span></div>
                     <blockquote class="about-philosophy">"Seeking information and executing plans after thinking and
                         researching is the quality of my success."</blockquote>
                 </div>
